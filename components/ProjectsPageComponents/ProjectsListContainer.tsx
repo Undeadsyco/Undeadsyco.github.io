@@ -1,4 +1,4 @@
-import type { listContainerProps } from '../types/index';
+import type { listContainerProps } from '../../types/index';
 
 import ProjectTypeListItem from './ProjectsTypeListItem';
 

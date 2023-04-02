@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { repo } from "../types";
+import type { repo } from "../../types";
 
 const ProjectListItem = ({ name, html_url, language, appType }: repo) => (
   <div>
