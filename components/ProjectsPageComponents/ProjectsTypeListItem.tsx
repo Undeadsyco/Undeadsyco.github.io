@@ -1,4 +1,4 @@
-import type { filteredListitem } from "../types";
+import type { filteredListitem } from "../../types";
 import ProjectListItem from "./ProjectsListItem";
 
 const ProjectTypeListItem = ({ type, repos }: filteredListitem) => (
