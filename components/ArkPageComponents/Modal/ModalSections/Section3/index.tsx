@@ -4,9 +4,7 @@ type props = {
   formik: formik;
 };
 
-const ModalSection3 = ({ formik: { values: {
-  healthStat, staminaStat, weightStat, damageStat, healthAffinity, staminaAffinity, weightAffinity, damageAffinity, tameType,
-}, handleChange, handleBlur } }: props) => (
+const ModalSection3 = ({ formik: { handleChange, handleBlur } }: props) => (
   <div className='flex flex-wrap'>
     Parents
     <div>
