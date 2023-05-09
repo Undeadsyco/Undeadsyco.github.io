@@ -1,12 +1,16 @@
 import type { GetStaticProps, GetStaticPropsContext, GetStaticPropsResult } from "next";
 
-import { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { v4 } from 'uuid';
+
 import { Header, ArkTameItem, ArkModal } from "../../components/ArkPageComponents";
 import { getData } from "../../utils";
 
 type pageProps = {
 
 }
+
+type tabs = ('tames' | 'members' | 'items');
 
 export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext): Promise<GetStaticPropsResult<any>> => {
   const db = process.env.DATABASE;
@@ -31,11 +35,24 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 }
 
 export default function Ark({ tames }: { tames: Array<any> }) {
-  const [activeTab, setActiveTab] = useState('tames');
+  const [activeTab, setActiveTab] = useState<tabs>('tames');
 
   useEffect(() => {
-    console.log(tames)
-  }, [tames])
+    console.log('tames', tames);
+  }, [tames]);
+
+  const selectTab = useMemo(() => {
+    switch (activeTab) {
+      case 'members':
+        return (<div>Members</div>);
+      case 'tames':
+        return (tames?.map((tame) => <ArkTameItem key={`${v4()}-${tame._id}`} tame={tame} />));
+      case 'items':
+        return (<div>Items</div>);
+      default:
+        return ((tames?.map((tame) => <ArkTameItem key={`${v4()}-${tame._id}`} tame={tame} />)));
+    }
+  }, [activeTab, tames]);
 
   return (
     <div className="bg-black p-2 w-[95%] mx-auto">
@@ -45,9 +62,7 @@ export default function Ark({ tames }: { tames: Array<any> }) {
       <Header active={activeTab} setActive={setActiveTab} />
 
       <div className="h-4/5  grid grid-cols-3 gap-2 W-[90%]">
-        {activeTab === 'members' ? <div>Members</div> : null}
-        {activeTab === 'tames' ? tames.map((tame) => <ArkTameItem key={tame._id} tame={tame} />) : null}
-        {activeTab === 'items' ? <div>Items</div> : null}
+        {selectTab}
       </div>
     </div>
   )

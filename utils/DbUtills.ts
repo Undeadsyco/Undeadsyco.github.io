@@ -28,24 +28,25 @@ if (process.env.NODE_ENV === 'development') {
 function convertTamesData(tames: any[]) {
   // console.log('tames', tames)
   return tames.map((tame: any) => ({
-    id: tame._id.toString(),
-    name: tame.name,
-    species: tame.creature,
-    tamed_status: tame.wild ? 'wild' : 'born',
-    sex: tame.sex,
+    id: tame?._id.toString(),
+    name: tame?.name,
+    species: tame?.species,
+    tamed_status: tame?.wild ? 'wild' : 'born',
+    sex: tame?.sex,
     lvl: {
-      wild: tame.wild ? tame.lvl.wild : null,
-      tamed: tame.lvl.tamed,
-      max: tame.lvl.max,
+      wild: tame?.wild ? tame?.lvl.wild : null,
+      tamed: tame?.lvl.tamed,
+      max: tame?.lvl.max,
     },
-    parents: tame.born ? {
-      mother: tame.parents.mother.name,
-      father: tame.parents.father.name,
+    parents: tame?.born ? {
+      mother: tame?.parents.mother.name,
+      father: tame?.parents.father.name,
     } : null,
-    stats: tame.stats,
-    affinity: tame.affinity,
-    deceased: tame.deseased,
-    nutered: tame.nutered,
+    stats: tame?.stats,
+    affinity: tame?.affinity,
+    deceased: tame?.deseased,
+    nutered: tame?.nutered,
+    platform: tame?.platform,
   }));
 }
 
@@ -69,7 +70,7 @@ export default async function getData(database: string, collection: string) {
       {
         "$lookup": {
           from: "tames",
-          localField: "parents.Mother",
+          localField: "parents.mother",
           foreignField: "_id",
           as: "parents.mother"
         },
@@ -97,6 +98,6 @@ export default async function getData(database: string, collection: string) {
     ]).toArray();
     return convertData(collection, data);
   } catch (err: any) {
-    console.log(err.message)
+    console.log(err)
   }
 }
