@@ -27,6 +27,8 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    env: 
+      MONGO_URI: ${{ secrets.MONGO_URI }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -54,8 +56,6 @@ jobs:
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
         uses: actions/configure-pages@v2
-        env: 
-          MONGO_URI: ${{ secrets.MONGO_URI }}
         with:
           # Automatically inject basePath in your Next.js configuration file and disable
           # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
@@ -75,11 +75,9 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Echo
-        run: echo "$secrets.MONGO_URI"
+        run: echo "$MONGO_URI"
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-        env: 
-          MONGO_URI: ${{ secrets.MONGO_URI }}
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
