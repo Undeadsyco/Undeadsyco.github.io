@@ -25,6 +25,8 @@ concurrency:
 
 env:
   MONGO_URI: ${{ secrets.MONGO_URI }}
+  DATABSE: ${{ secrets.DATABASE }}
+  TAMES_COLLECTION: ${{ secrets.TAMES_COLLECTION }}
 
 jobs:
   # Build job
