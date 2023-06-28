@@ -96,9 +96,9 @@ function Modal({ visible }: props) {
   }, [modalSection, formik, handleSection1Btn]);
 
   return (
-    <div className="absolute w-full h-full top-0 left-0">
+    <div className={`${visible ? 'block' : 'hidden'} absolute w-full h-full top-0 left-0`}>
       <div className="bg-slate-900 opacity-70 w-full h-full"></div>
-      <div className={`${visible ? 'block' : 'hiddin'} bg-white absolute w-2/5 h-3/5 left-0 top-0 translate-x-3/4 translate-y-1/3`}>
+      <div className={`bg-white absolute w-2/5 h-3/5 left-0 top-0 translate-x-3/4 translate-y-1/3`}>
         <form className="flex flex-wrap w-full h-full justify-center" onSubmit={formik.handleSubmit}>
           <h2 className="text-black w-full p-1 text-2xl text-center">Add New Creature</h2>
           {selectSection}
