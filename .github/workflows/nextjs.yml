@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  MONGO_URI: ${{ secrets.MONGO_URI }}
+  MONGO_URI: ${{ vars.MONGO_URI }}
 
 jobs:
   # Build job
