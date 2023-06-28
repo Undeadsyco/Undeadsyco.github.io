@@ -57,7 +57,7 @@ export default function Ark({ tames }: { tames: Array<any> }) {
   return (
     <div className="bg-black p-2 w-[95%] mx-auto">
 
-      <ArkModal visible={true} />
+      <ArkModal visible={false} />
 
       <Header active={activeTab} setActive={setActiveTab} />
 
