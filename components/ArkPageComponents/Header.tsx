@@ -3,23 +3,26 @@ type arkHeaderProps = {
   setActive: Function;
 }
 const ArkHeader = ({ active, setActive }: arkHeaderProps) => (
-  <div className="ark-header h-1/5 flex flex-wrap justify-between">
-    <h1 className="w-full">Ark Collection Database</h1>
-    <ul className="flex w-1/4 justify-around">
-      <li className={`${active === 'members' ? 'text-yellow-500' : null}`}>
-        <button onClick={() => setActive('members')}>Members</button>
-      </li>
-      <li className={`${active === 'tames' ? 'text-yellow-500' : null}`}>
-        <button onClick={() => setActive('tames')}>Tames</button>
-      </li>
-      <li className={`${active === 'items' ? 'text-yellow-500' : null}`}>
-        <button onClick={() => setActive('items')}>Items</button>
-      </li>
-    </ul>
-    <div>
+  <header className="ark-header-container">
+    <h1 className="ark-header-title">Ark Collection Database</h1>
+    <div className="ark-header-collections-dropdown">
+      <h3 className="ark-header-collections-dropdown-title">Collections</h3>
+      <ul className="ark-header-collections-dropdown-list">
+        <li className={`${active === 'members' ? 'text-yellow-500' : null} ark-header-collections-dropdown-item`}>
+          <button onClick={() => setActive('members')} className="ark-header-collections-dropdown-btn">Members</button>
+        </li>
+        <li className={`${active === 'tames' ? 'text-yellow-500' : null} ark-header-collections-dropdown-item`}>
+          <button onClick={() => setActive('tames')} className="ark-header-collections-dropdown-btn">Tames</button>
+        </li>
+        <li className={`${active === 'items' ? 'text-yellow-500' : null} ark-header-collections-dropdown-item`}>
+          <button onClick={() => setActive('items')} className="ark-header-collections-dropdown-btn">Items</button>
+        </li>
+      </ul>
+    </div>
+    <div className="ark-header-btn">
       <button>Add New</button>
     </div>
-  </div>
+  </header>
 );
 
 export default ArkHeader;

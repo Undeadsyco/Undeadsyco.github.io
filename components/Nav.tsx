@@ -7,8 +7,8 @@ const Nav = () => (
       <li>About</li>
       <li><Link href={'/projects'}>Projects</Link></li>
       
-      <li> More
-        <ul>
+      <li className="dropdown"> More
+        <ul className="dropdown-content">
           <li>Blog</li> 
           <li><Link href={'/ark'}>Ark</Link></li>
         </ul>

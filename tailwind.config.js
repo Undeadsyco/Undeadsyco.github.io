@@ -8,6 +8,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        slidedown: {
+          '0%': { height: '0' },
+          '100%': { height: 'full'}
+        },
+      },
+      animation: {
+        slidedown: 'slidedown 1s ease-in-out'
+      },
       backgroundImage: {
         'circuit-bg': path.resolve(__dirname, './public/circuit-board.png'),
       }

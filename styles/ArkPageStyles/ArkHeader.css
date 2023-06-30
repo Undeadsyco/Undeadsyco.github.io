@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+  .ark-header-container {
+    @apply 
+    flex 
+    flex-wrap 
+    justify-between 
+    items-center
+    px-8
+  }
+
+  .ark-header-title {
+    @apply
+    w-full
+    text-center
+    text-lg
+  }
+
+  .ark-header-collections-dropdown {
+    @apply
+    relative
+    w-1/12
+    bg-slate-400
+    text-black
+    border-slate-700
+    border-solid
+    border-2
+    rounded-full
+  }
+
+  .ark-header-collections-dropdown:hover {
+    @apply
+    cursor-pointer
+    rounded-t-2xl
+    rounded-b-none
+    bg-slate-700
+    text-white
+  }
+
+  .ark-header-collections-dropdown-title {
+    @apply
+    text-center
+    w-full
+  }
+
+  .ark-header-collections-dropdown-list {
+    @apply
+    hidden
+    absolute
+    w-full
+    h-20
+    opacity-90
+    bg-slate-400
+    text-black
+    border-slate-700
+    border-solid
+    border-2
+    rounded-b-2xl
+    transition-[height]
+    overflow-y-hidden
+    
+  }
+
+  .ark-header-collections-dropdown:hover .ark-header-collections-dropdown-list {
+    @apply
+    block
+    animate-slidedown
+  }
+
+  .ark-header-collections-dropdown-item {
+    @apply
+    text-center
+    text-white
+  }
+
+  .ark-header-collections-dropdown-btn {
+    @apply
+    hover:text-red-400
+  }
+
+  .ark-header-btn {
+    @apply
+    bg-slate-400
+    w-1/12
+    flex
+    justify-center
+    border-2
+    border-slate-700
+    border-solid
+    rounded-full
+    text-black
+
+    hover:text-red-500
+    hover:bg-slate-700
+  }
+}
