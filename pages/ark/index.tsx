@@ -51,13 +51,13 @@ export default function Ark({ tames }: { tames: Array<any> }) {
   }, [activeTab, tames]);
 
   return (
-    <div className="bg-black p-2 w-[95%] max-h-[95%] mx-auto grid grid-cols-1 grid-rows-6">
+    <div className="ArkPage">
 
       <ArkModal visible={false} />
 
       <Header active={activeTab} setActive={setActiveTab} />
 
-      <div className="grid grid-cols-3 gap-2 W-[90%] overflow-y-scroll row-span-5">
+      <div className="ArkContentContainer">
         {selectTab}
       </div>
     </div>

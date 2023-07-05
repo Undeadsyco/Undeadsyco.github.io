@@ -1,27 +1,20 @@
-import InfoContainer from "./InfoContainer";
-import LvlContainer from "./LevelsContainer";
-import NameContainer from "./NameContainer";
-import StatsTable from "./StatsTable";
+import Image from "next/image";
+import { Name, Levels, Stats, Sex, Age, Heratage } from "./components";
 
 type parents = {
   mother: string;
   father: string;
 }
 
-const ParentsContainer = ({ parents: { mother, father } }: { parents: parents }) => (
-  <div>
-    <p>Mother: {mother}</p>
-    <p>Father: {father}</p>
-  </div>
-)
-
 const ArkTameItem = ({ tame }: { tame: any }) => (
-  <div className="bg-slate-700 p-2">
-    <NameContainer name={tame.name} deceased={tame.deceased} />
-    <InfoContainer species={tame.species} sex={tame.sex} status={tame.tamed_status} />
-    <LvlContainer lvl={tame.lvl} />
-    {tame.parents ? <ParentsContainer parents={tame.parents} /> : null}
-    <StatsTable stats={tame.stats} affinity={tame.affinity} />
+  <div className="TameItem">
+    <div className="TameImg"> {/* <Image  /> */} </div>
+    <Name name={tame.name} deceased={tame.deceased} />
+    <Sex sex={tame.sex} />
+    <Age age="Adult" />
+    <Levels lvl={tame.lvl} />
+    <Stats stats={tame.stats} affinity={tame.affinity} />
+    <Heratage status={tame.tamed_status} />
   </div>
 )
 
