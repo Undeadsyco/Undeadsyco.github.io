@@ -163,7 +163,7 @@ class Controller {
     return new Tame(tame)
   }
 
-  static async getAll(): Promise<Tame[]> {
+  static async findAll(): Promise<Tame[]> {
     return ((
       await this.tameModel.find().lean()
     ).map(
@@ -171,7 +171,7 @@ class Controller {
     ));
   }
 
-  static async getOne(id: string): Promise<Tame> {
+  static async findOne(id: string): Promise<Tame> {
     return ((
       await this.tameModel.findById(id).lean()
     ).then(
@@ -179,10 +179,10 @@ class Controller {
     ))
   }
 
-  static async getList(idList: string[]): Promise<Tame[]> {
+  static async findList(idList: string[]): Promise<Tame[]> {
     const tames: Tame[] = [];
     for (let i = 0; i < idList.length; i += 1) {
-      tames.push(await this.getOne(idList[i]));
+      tames.push(await this.findOne(idList[i]));
     }
     return tames;
   }

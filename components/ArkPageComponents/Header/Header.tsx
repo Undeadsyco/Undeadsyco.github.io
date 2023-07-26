@@ -1,24 +1,23 @@
+import Link from 'next/link';
 import { BsArrowDownCircle, BsArrowDownCircleFill } from 'react-icons/bs';
 
 type arkHeaderProps = {
   active: string;
   setActive: Function;
+  keys: string[];
+  handleClick: Function;
 }
-const ArkHeader = ({ active, setActive }: arkHeaderProps) => (
+const ArkHeader = ({ active, setActive, keys, handleClick }: arkHeaderProps) => (
   <header className="ark-header-container">
     <h1 className="ark-header-title">Ark Collection Database</h1>
     <div className="ark-header-collections-dropdown">
       <h3 className="ark-header-collections-dropdown-title">Collections</h3>
       <ul className="ark-header-collections-dropdown-list">
-        <li className={`${active === 'members' ? 'text-yellow-500' : null} ark-header-collections-dropdown-item`}>
-          <button onClick={() => setActive('members')} className="ark-header-collections-dropdown-btn">Members</button>
-        </li>
-        <li className={`${active === 'tames' ? 'text-yellow-500' : null} ark-header-collections-dropdown-item`}>
-          <button onClick={() => setActive('tames')} className="ark-header-collections-dropdown-btn">Tames</button>
-        </li>
-        <li className={`${active === 'items' ? 'text-yellow-500' : null} ark-header-collections-dropdown-item`}>
-          <button onClick={() => setActive('items')} className="ark-header-collections-dropdown-btn">Items</button>
-        </li>
+        {keys.map((key) => (
+          <li key={key} className={`${active === key ? 'text-yellow-500' : null} ark-header-collections-dropdown-item`}>
+            <button onClick={() => setActive(key)} className="ark-header-collections-dropdown-btn">{key}</button>
+          </li>
+        ))}
       </ul>
     </div>
     <div>
@@ -26,7 +25,7 @@ const ArkHeader = ({ active, setActive }: arkHeaderProps) => (
       <span></span>
     </div>
     <div className="ark-header-btn">
-      <button>Add New</button>
+      <button onClick={() => handleClick()} >Add New</button>
     </div>
   </header>
 );

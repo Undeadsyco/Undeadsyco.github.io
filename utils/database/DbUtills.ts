@@ -1,33 +1,8 @@
-import type { ConnectOptions } from 'mongoose';
+import { createConnection, gatherCollections } from './gatherCollections';
 
-import { connect, connection, } from 'mongoose';
-import { TamesController } from './collections/ark';
-
-
-const uri = process.env.MONGO_URI;
-
-if (!uri) {
-  console.log('mongo uri', uri);
-  throw new Error('Add Mongo URI to .env.local')
-}
-
-async function getArkCollections() {
-  return JSON.stringify({ tames: await TamesController.getAll() });
-}
-
-export default async function getData(database: string, collections?: string[]) {
+export default async function getData(database: string) {
   try {
-    connect(uri as string, { useUnifiedTopology: true, dbName: database } as ConnectOptions).then((connect) => {
-      if (connect) console.log(connection.db.databaseName);
-    }).catch(err => {
-      console.log(err)
-    });
-
-    switch (database) {
-      case 'ark': {
-        return getArkCollections();
-      }
-    }
+    if (await createConnection(database)) return await gatherCollections(database);
   } catch (err: any) {
     console.log(err)
   }

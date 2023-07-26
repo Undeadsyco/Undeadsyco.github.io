@@ -1,35 +1,37 @@
 import type { GetStaticProps, GetStaticPropsContext, GetStaticPropsResult, InferGetStaticPropsType } from "next";
 
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { v4 } from 'uuid';
+import axios from "axios";
 
 import { Header, ArkTameItem, ArkModal } from "../../components/ArkPageComponents";
 import { getData } from "../../utils";
-
-type tabs = ('tames' | 'members' | 'items');
 
 export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext): Promise<GetStaticPropsResult<any>> => {
   const db = process.env.DATABASE;
 
   if (!db) throw new Error('Database missing! Please provide missing info to establish connection');
 
-  const { tames } = JSON.parse(await getData(db as string) as string);
+  const { tames, members, items, colors, species } = JSON.parse(await getData(db as string) as string);
 
   return ({
     props: {
-      // members: members || null,
+      members: members ?? null,
       tames: tames ?? null,
-      // items: items || null,
+      items: items ?? null,
+      colors: colors ?? null,
+      species: species ?? null,
     }
   });
 }
 
-export default function Ark({ tames }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
-  if (router.isFallback) {}
+  const [keys] = useState(Object.keys(props));
+  const [activeTab, setActiveTab] = useState(keys[0]);
 
-  const [activeTab, setActiveTab] = useState<tabs>('tames');
+  const { tames } = props;
 
   const selectTab = useMemo(() => {
     switch (activeTab) {
@@ -44,12 +46,24 @@ export default function Ark({ tames }: InferGetStaticPropsType<typeof getStaticP
     }
   }, [activeTab, tames]);
 
+  const checkConnection = async () => {
+    console.log('click');
+    const req = await axios.get('http://localhost:3000/api/ark/tames/new');
+    const res = await req.data;
+    console.log('status', res.status);
+    if (res.status === 'success') router.push('/ark/new'); 
+  }
+
+  if (router.isFallback) {
+    return (<div className="text-white">Loading...</div>)
+  }
+
   return (
     <div className="ArkPage">
 
       <ArkModal visible={false} />
 
-      <Header active={activeTab} setActive={setActiveTab} />
+      <Header active={activeTab} setActive={setActiveTab} keys={keys} handleClick={checkConnection} />
 
       <div className="ArkContentContainer">
         {selectTab}
