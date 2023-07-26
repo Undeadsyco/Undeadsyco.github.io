@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Name, Levels, Stats, Sex, Age, Heratage } from "./components";
 
 type parents = {
@@ -9,7 +10,10 @@ type parents = {
 const ArkTameItem = ({ tame }: { tame: any }) => (
   <div className="TameItem">
     <div className="TameImg"> {/* <Image  /> */} </div>
-    <Name name={tame.name} deceased={tame.deceased} />
+    <Link href={{
+      pathname: `/ark/${tame.id}`,
+      query: tame
+    }} className="TameNameContainer"><Name name={tame.name} deceased={tame.deceased} path={tame.id} /></Link>
     <Sex sex={tame.sex} />
     <Age age="Adult" />
     <Levels lvl={tame.lvl} />

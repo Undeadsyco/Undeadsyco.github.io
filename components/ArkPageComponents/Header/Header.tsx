@@ -1,3 +1,5 @@
+import { BsArrowDownCircle, BsArrowDownCircleFill } from 'react-icons/bs';
+
 type arkHeaderProps = {
   active: string;
   setActive: Function;
@@ -18,6 +20,10 @@ const ArkHeader = ({ active, setActive }: arkHeaderProps) => (
           <button onClick={() => setActive('items')} className="ark-header-collections-dropdown-btn">Items</button>
         </li>
       </ul>
+    </div>
+    <div>
+      <span>Filter</span>
+      <span></span>
     </div>
     <div className="ark-header-btn">
       <button>Add New</button>

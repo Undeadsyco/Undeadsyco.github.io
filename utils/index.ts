@@ -1,1 +1,1 @@
-export { default as getData } from './DbUtills';
+export { default as getData } from './database/DbUtills';
