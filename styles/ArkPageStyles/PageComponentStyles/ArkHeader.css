@@ -6,8 +6,9 @@
 @layer components {
   .ark-header-container {
     @apply 
-    flex 
-    flex-wrap 
+    grid
+    grid-rows-2
+    grid-cols-9
     justify-between 
     items-center
     px-8
@@ -15,7 +16,9 @@
 
   .ark-header-title {
     @apply
-    w-full
+    col-span-full
+    row-span-1
+    row-start-1
     text-center
     text-lg
   }
@@ -23,7 +26,8 @@
   .ark-header-collections-dropdown {
     @apply
     relative
-    w-1/12
+    col-span-1
+    col-start-1
     bg-slate-400
     text-black
     border-slate-700
@@ -45,6 +49,9 @@
     @apply
     text-center
     w-full
+    flex
+    justify-around
+    items-center
   }
 
   .ark-header-collections-dropdown-list {
@@ -52,7 +59,7 @@
     hidden
     absolute
     w-full
-    h-20
+    h-32
     opacity-90
     bg-slate-400
     text-black
@@ -82,10 +89,18 @@
     hover:text-red-400
   }
 
+  .ark-header-filter {
+    @apply
+    col-span-1
+    col-start-5
+    text-center
+  }
+
   .ark-header-btn {
     @apply
     bg-slate-400
-    w-1/12
+    col-span-1
+    col-start-9
     flex
     justify-center
     border-2

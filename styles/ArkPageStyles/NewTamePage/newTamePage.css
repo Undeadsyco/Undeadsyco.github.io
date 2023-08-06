@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .grid-rows-7 {
+    grid-template-rows: repeat(7, minmax(0, 1fr));
+  }
+}
+
+@layer components {
+  .tameFormContainer {
+    @apply col-span-full row-span-full px-2 py-5 grid grid-flow-col gap-1 grid-cols-5 grid-rows-5
+  }
+
+  .newArkTameFormContainerDefault {
+    @apply bg-gray-500 border-4 border-black border-solid rounded-2xl
+  }
+
+  /* New Ark Tame Name Form Styles */
+  .newArkTameNameFormInput {
+    @apply grid grid-cols-1 grid-rows-2 justify-items-center
+  }
+
+  .newArkTameNameFormInput>label {
+    @apply col-span-1 flex justify-center
+  }
+
+  .newArkTameNameFormInput>input {
+    @apply col-span-1 row-start-2 bg-white rounded-full w-5/6
+  }
+
+  /* New Ark Tame Obtained status (tamed/breed) Form Styles */
+  .newArkTameObtainedFormInput {
+    @apply col-start-1 row-start-5
+  }
+
+  .newArkTameBreedFormInput {
+    @apply justify-self-end
+  }
+
+  /* New Ark Tame Status status (deseased/nutered) Form Styles */
+  .newArkTameStatusFormInput {
+    @apply col-start-2 row-start-5
+  }
+
+  .newArkTameNuteredFormInput {
+    @apply justify-self-end
+  }
+
+  /* New Ark Tame Age Form Styles */
+  .newArkTameSexFormContainerDefault {
+    @apply grid grid-cols-2 grid-rows-2
+  }
+
+  .newArkTameSexFormInput {
+    @apply grid grid-cols-3
+  }
+
+  .newArkTameSexFormInput>label {
+    @apply col-span-2 flex justify-center items-center
+  }
+
+  .newArkTameSexFormInput>label>span {
+    @apply text-center
+  }
+
+  /* New Ark Tame Age Form Styles */
+  .newArkTameAgeFormContainerDefault {
+    @apply grid grid-cols-2 row-span-2
+  }
+
+  .newArkTameAgeFormContainerWithError {
+    @apply grid-rows-4
+  }
+
+  .newArkTameAgeFormContainerWithoutError {
+    @apply grid-rows-3
+  }
+
+  .newArkTameAgeFormInput {
+    @apply grid grid-cols-1 grid-rows-2
+  }
+
+  .newArkTameAgeFormInput>label {
+    @apply w-full text-sm text-center flex justify-center items-center
+  }
+
+  /* New Ark Tame Parents Form Styles */
+  .newArkTameParentsFormContainer {
+    @apply row-span-2 grid grid-rows-5 col-start-2
+  }
+
+  .newArkTameParentsFormInput {
+    @apply row-span-2
+  }
+
+  /* New Ark Tame Levels Form Styles */
+  .newArkTameLevelsFormContainer {
+    @apply row-span-4 col-start-3 flex flex-wrap p-2
+  }
+
+  /* New Ark Tame Stats Form Styles */
+  .newArkTameStatsFormContainer {
+    @apply col-start-4 col-span-2 row-span-5 grid grid-rows-7
+  }
+
+  .newArkTameStatsFormContainer>* {
+    @apply border-b-4 border-solid border-black
+  }
+
+  .newArkTameStatsFormContainer>*:last-child {
+    @apply border-0
+  }
+}

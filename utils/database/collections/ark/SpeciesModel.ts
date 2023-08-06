@@ -1,9 +1,8 @@
-import type { Types } from "mongoose";
-import type { species } from "./types";
+import type { mongoSpecies, propSpecies } from "./types";
 
 import { Schema, model, models } from "mongoose";
 
-export class Species implements species<string> {
+export class Species implements propSpecies {
   public _id!: string;
   public name!: string;
   public diet!: string;
@@ -12,7 +11,7 @@ export class Species implements species<string> {
   public ridable!: boolean;
   public breedable!: boolean;
 
-  constructor(species: species<Types.ObjectId>) {
+  constructor(species: mongoSpecies) {
     const { _id, name, diet, temperament, tamable, ridable, breedable } = species;
     this._id = _id.toString();
     this.name = name;
@@ -25,7 +24,7 @@ export class Species implements species<string> {
 }
 
 export default class Controller {
-  private static speciesSchema = new Schema<species<Types.ObjectId>>({
+  private static speciesSchema = new Schema<mongoSpecies>({
     name: String,
     diet: String,
     temperament: String,
@@ -33,9 +32,9 @@ export default class Controller {
     ridable: Boolean,
     breedable: Boolean,
   });
-  private static speciesModel = models['species'] ?? model<species<Types.ObjectId>>('species', this.speciesSchema);
+  private static speciesModel = models['species'] ?? model<mongoSpecies>('species', this.speciesSchema);
 
-  static convertSpecies(species: species<Types.ObjectId>): Species {
+  static convertSpecies(species: mongoSpecies): Species {
     return new Species(species);
   }
 
@@ -44,7 +43,7 @@ export default class Controller {
   }
 
   static async findOne(id: string): Promise<Species> {
-    return (await this.speciesModel.findById(id).lean()).then((species: species<Types.ObjectId>) => this.convertSpecies(species));
+    return (await this.speciesModel.findById(id).lean()).then((species: mongoSpecies) => this.convertSpecies(species));
   }
 
   static async findList(idList: string[]): Promise<Species[]> {

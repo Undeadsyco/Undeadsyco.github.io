@@ -1,15 +1,14 @@
-import type { Types } from "mongoose";
-import type { tameColor } from "./types";
+import type { mongoColor, propColor } from "./types";
 
 import { Schema, model, models } from "mongoose";
 
-export class TameColor implements tameColor<string> {
+export class TameColor implements propColor {
   public _id!: string;
   public color!: string;
   public hex!: string;
   public colorID!: number;
 
-  constructor(tameColor: tameColor<Types.ObjectId>) {
+  constructor(tameColor: mongoColor) {
     const { _id, color, hex, colorID } = tameColor;
     this._id = _id.toString();
     this.color = color;
@@ -19,15 +18,15 @@ export class TameColor implements tameColor<string> {
 }
 
 export default class TameColorController {
-  private static colorSchema = new Schema<tameColor<Types.ObjectId>>({
+  private static colorSchema = new Schema<mongoColor>({
     color: String,
     hex: String,
     colorID: Number,
   });
 
-  private static colorModel = models['tame_colors'] ?? model<tameColor<Types.ObjectId>>('tame_colors', this.colorSchema);
+  private static colorModel = models['tame_colors'] ?? model<mongoColor>('tame_colors', this.colorSchema);
 
-  static convertColor(color: tameColor<Types.ObjectId>): TameColor {
+  static convertColor(color: mongoColor): TameColor {
     return new TameColor(color)
   }
 
@@ -39,7 +38,7 @@ export default class TameColorController {
     return ((
       await this.colorModel.findOne({ colorID: id }).lean()
     ).then(
-      (color: tameColor<Types.ObjectId>) => this.convertColor(color)
+      (color: mongoColor) => this.convertColor(color)
     ));
   }
 

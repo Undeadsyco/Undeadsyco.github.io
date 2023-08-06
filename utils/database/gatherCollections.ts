@@ -7,7 +7,6 @@ export async function createConnection(database: string) {
   const uri = process.env.MONGO_URI;
 
   if (!uri) {
-    console.log('mongo uri', uri);
     throw new Error('Add Mongo URI to .env.local')
   }
 
@@ -15,7 +14,6 @@ export async function createConnection(database: string) {
     .then((connect) => {
       if (connect) return true;
     }).catch(err => {
-      console.log(err);
       return false;
     });
 }

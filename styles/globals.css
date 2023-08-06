@@ -26,17 +26,24 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
   }
 }
 
-@media (prefers-color-scheme: light) {
-
-}
+@media (prefers-color-scheme: light) {}
 
 @layer base {
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
+         
   .grid-rows-10 {
     grid-template-rows: repeat(10, minmax(0, 1fr));
   }
@@ -49,179 +56,130 @@ a {
 
 @layer components {
   .circuit-bg {
-    @apply
-    w-screen
-    h-screen
-    relative
+    @apply w-screen h-screen relative
   }
 
   .circuit-bg::before {
-    @apply
-    content-['']
-    block
-    absolute
-    left-0
-    top-0
-    w-screen
-    h-screen
-    opacity-80
-    bg-cover
-    bg-center
-    bg-[url('../public/circuit-board.png')]
+    @apply content-[''] block absolute left-0 top-0 w-screen h-screen opacity-80 bg-cover bg-center bg-[url('../public/circuit-board.png')]
   }
 
   .container {
-    @apply 
-    w-screen
-    h-screen
-    grid
-    grid-cols-1
-    grid-rows-10
-    opacity-100
-    absolute
-    top-0
-    left-0
+    @apply w-screen h-screen grid grid-cols-1 grid-rows-10 opacity-100 absolute top-0 left-0
   }
 
   .nav {
-    @apply
-    col-span-full
-    row-span-1
-    flex
-    justify-between
-    items-center
+    @apply col-span-full row-span-1 flex justify-between items-center
   }
 
-  .nav > ul {
-    @apply
-    flex
-    justify-around
-    w-1/3
+  .nav>ul {
+    @apply flex justify-around w-1/3
   }
 
   .nav .dropdown {
-    @apply
-    relative
+    @apply relative
   }
 
   .nav .dropdown .dropdown-content {
-    @apply
-    hidden
-    absolute
+    @apply hidden absolute
   }
 
   .nav .dropdown:hover {
-    @apply
-    cursor-pointer
+    @apply cursor-pointer
   }
 
   .nav .dropdown:hover .dropdown-content {
-    @apply
-    block
+    @apply block
   }
 
-  .nav > ul:last-child {
-    @apply
-    w-1/5
+  .nav>ul:last-child {
+    @apply w-1/5
   }
 
   .content {
-    @apply
-    col-span-full
-    row-span-9
-    overflow-hidden
+    @apply col-span-full row-span-9 overflow-hidden
   }
 
   .main-page {
-    @apply
-    w-full
-    h-full
-    p-2
+    @apply w-full h-full p-2
   }
 
   .title {
-    @apply
-    text-3xl 
-    font-bold 
-    underline 
-    relative 
-    top-1/3 
-    left-1/4 
-    inline-block 
-    -translate-x-1/2 
-    -translate-y-1/2
+    @apply text-3xl font-bold underline relative top-1/3 left-1/4 inline-block -translate-x-1/2 -translate-y-1/2
   }
 
   .projects-page {
-    @apply
-    w-full
-    h-full
-    overflow-auto
-    p-12
+    @apply w-full h-full overflow-auto p-12
   }
 
   .project-type-list {
-    @apply
-    my-4
-    relative
+    @apply my-4 relative
   }
 
   .project-type-list-item {
-    @apply
-    p-4
-    relative
-    z-10
+    @apply p-4 relative z-10
   }
 
   .project-type-list-item::before {
-    @apply
-    content-['']
-    block
-    absolute
-    left-0
-    top-0
-    w-full
-    h-full
-    bg-gradient-to-l
-    from-gray-900
-    via-gray-500
-    to-gray-900
-    opacity-70
-    -z-10
-    rounded-3xl
+    @apply content-[''] block absolute left-0 top-0 w-full h-full bg-gradient-to-l from-gray-900 via-gray-500 to-gray-900 opacity-70 -z-10 rounded-3xl
   }
 
   .project-list {
-    @apply
-    grid
-    grid-cols-4
-    mt-6
-    gap-12
-    p-4
+    @apply grid grid-cols-4 mt-6 gap-12 p-4
   }
-  
+
   .project-list-item {
-    @apply
-    relative
-    p-2
-    text-center
-    z-0
+    @apply relative p-2 text-center z-0
   }
 
   .project-list-item::before {
-    @apply
-    content-['']
-    absolute
-    top-0
-    left-0
-    w-full
-    h-full
-    rounded-3xl
-    bg-gradient-to-br
-    from-red-300
-    via-green-300
-    to-blue-300
-    opacity-80
-    -z-10
+    @apply content-[''] absolute top-0 left-0 w-full h-full rounded-3xl bg-gradient-to-br from-red-300 via-green-300 to-blue-300 opacity-80 -z-10
+  }
+
+  .defaultFormInput {
+    @apply grid grid-cols-3 grid-rows-1 justify-items-center justify-around
+  }
+
+  .defaultFormInput>label {
+    @apply col-span-1 col-start-1
+  }
+
+  .defaultFormInput>input {
+    @apply bg-white w-2/3 m-1 text-black col-span-2 col-start-2 rounded-full text-center
+  }
+
+  .defaultFormInputWithError {
+    @apply grid grid-cols-3 grid-rows-2 justify-items-center justify-around
+  }
+
+  .miniDefaultFormInput {
+    @apply grid grid-cols-2 justify-items-center justify-around
+  }
+
+  .miniDefaultFormInput>label {
+    @apply col-span-1 col-start-1 flex justify-center items-center
+  }
+
+  .miniDefaultFormInput>label>span {
+    @apply w-full h-full justify-center items-center
+  }
+
+  .miniDefaultFormInput>input {
+    @apply bg-white w-full m-1 text-black col-span-1 col-start-2 text-center rounded-full appearance-none
+  }
+
+  .formInputErrorMessageDefault {
+    @apply text-red-500 text-center row-start-2 col-span-full
+  }
+
+  .halfSizeDefaultFormInput {
+    @apply w-[49%] grid grid-cols-3 justify-items-center
+  }
+
+  .halfSizeDefaultFormInput>label {
+    @apply col-span-2 flex items-center
+  }
+
+  .halfSizeDefaultFormInput>input {
+    @apply col-span-1 rounded-full w-6
   }
 }

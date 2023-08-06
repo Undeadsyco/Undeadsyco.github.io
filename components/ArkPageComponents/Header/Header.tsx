@@ -1,28 +1,26 @@
-import Link from 'next/link';
-import { BsArrowDownCircle, BsArrowDownCircleFill } from 'react-icons/bs';
+import { BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
+import DropDown from '../../globalComponents/DropDown';
 
 type arkHeaderProps = {
   active: string;
   setActive: Function;
-  keys: string[];
+  collectionKeys: string[];
+  filterKeys: string[];
   handleClick: Function;
+  handleHover?: Function;
+  changeFilter: Function;
 }
-const ArkHeader = ({ active, setActive, keys, handleClick }: arkHeaderProps) => (
+const ArkHeader = ({ active, setActive, collectionKeys, filterKeys, handleClick, changeFilter }: arkHeaderProps) => (
   <header className="ark-header-container">
     <h1 className="ark-header-title">Ark Collection Database</h1>
-    <div className="ark-header-collections-dropdown">
-      <h3 className="ark-header-collections-dropdown-title">Collections</h3>
-      <ul className="ark-header-collections-dropdown-list">
-        {keys.map((key) => (
-          <li key={key} className={`${active === key ? 'text-yellow-500' : null} ark-header-collections-dropdown-item`}>
-            <button onClick={() => setActive(key)} className="ark-header-collections-dropdown-btn">{key}</button>
-          </li>
+    <DropDown keyList={collectionKeys} title='Collections' activeTab={active} handleClick={setActive} />
+    <div className="ark-header-filter">
+      <select onChange={(e) => changeFilter(e.target.value)} value={filterKeys[0]}>
+        <option value="">Filter</option>
+        {filterKeys?.map((key) => (
+          <option key={key} value={key}>{key}</option>
         ))}
-      </ul>
-    </div>
-    <div>
-      <span>Filter</span>
-      <span></span>
+      </select>
     </div>
     <div className="ark-header-btn">
       <button onClick={() => handleClick()} >Add New</button>

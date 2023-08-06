@@ -37,7 +37,6 @@ const StatsTable = ({ stats, affinity }: { stats: stats, affinity: stats }) => {
   }, [modal, iconStyle]);
 
   useEffect(() => {
-    console.log(modalTab)
     if (modalTab === 'Affinity') {
       setHealth(affinity.health);
       setStamina(affinity.stamina);

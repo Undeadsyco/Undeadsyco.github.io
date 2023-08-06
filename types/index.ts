@@ -34,7 +34,7 @@ export type listContainerProps = {
 
 export type sex = 'M'|'F'|'';
 export type platfrom = 'Xbox'|'Switch'|'';
-export type tameType = 'wild'|'born'|'';
+export type tameType = 'wild'|'breed'|'';
 export type lvls = {
   wild: number;
   tamed: number;

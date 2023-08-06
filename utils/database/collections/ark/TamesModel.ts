@@ -1,36 +1,50 @@
-import type { tame, tameLevels, tameStats, age, sex, parents, stats, addedLevels, memberStats, memberLevels } from "./types";
-import { Types } from "mongoose";
+import type { 
+  tameLevels, tameStats, age, sex, stats, addedLevels, classRefType, propTame, mongoTame, mongoParents, propParents, popPropTame, dataTame 
+} from "./types";
 
 import { Schema, model, models } from "mongoose";
+import { Member } from "./MembersModel";
+import { Species } from "./SpeciesModel";
+import { TameColor } from "./TamesColorsModel";
 
-export class Tame implements tame<string, string, string, string, string> {
+type populateOpts = {
+  owner?: Member;
+  parents?: {
+    mother: Tame;
+    father: Tame;
+  }
+  species?: Species;
+  colors?: TameColor[];
+}
+
+export class Tame implements propTame {
   public _id!: string;
   public name!: string;
   public age!: age;
   public sex!: sex;
-  public owner!: string;
+  public owner!: classRefType<Member>;
   public wild!: boolean;
-  public born!: boolean;
+  public breed!: boolean;
   public lvl!: tameLevels;
-  public parents!: parents<string>;
+  public parents!: propParents;
   public stats!: tameStats;
   public deseased!: boolean;
   public nutered!: boolean;
-  public species!: string;
-  public colors!: string[];
+  public species!: classRefType<Species>;
+  public colors!: classRefType<TameColor>[];
 
-  constructor(tame: tame<Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId>) {
-    const { _id, name, age, sex, owner, wild, born, lvl, parents, stats, deseased, nutered, species, colors } = tame;
+  constructor(tame: mongoTame) {
+    const { _id, name, age, sex, owner, wild, breed, lvl, parents, stats, deseased, nutered, species, colors } = tame;
     const { current, starting, affinity } = stats;
     const { wild: wildLvl, tamed, max, added } = lvl;
 
-    this._id = _id.toString();
+    this._id = _id!.toString();
     this.name = name;
     this.age = age;
     this.sex = sex;
     this.owner = owner.toString()
     this.wild = wild;
-    this.born = born;
+    this.breed = breed;
     this.lvl = {
       wild: wildLvl,
       tamed,
@@ -77,6 +91,14 @@ export class Tame implements tame<string, string, string, string, string> {
       weight,
       melee,
     });
+  }
+
+  public populte({ owner, parents, species, colors }: populateOpts): popPropTame {
+    if (owner) this.owner = owner;
+    if (parents) this.parents = parents;
+    if (species) this.species = species;
+    if (colors) this.colors = colors;
+    return this as popPropTame
   }
 }
 
@@ -136,18 +158,18 @@ class Controller {
     added: this.addedLvlsSchema
   }, { _id: false });
 
-  private static tameParentsSchema = new Schema<parents<Types.ObjectId>>({
+  private static tameParentsSchema = new Schema<mongoParents>({
     father: Schema.Types.ObjectId,
     mother: Schema.Types.ObjectId,
   }, { _id: false });
 
-  private static tamesSchema = new Schema<tame<Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId>>({
+  private static tamesSchema = new Schema<mongoTame>({
     name: String,
     age: { type: String, enum: ['Baby', 'Juvenile', 'Adolescence', 'Adult'], },
     sex: { type: String, enum: ["M", "F"] },
     owner: { type: Schema.Types.ObjectId, ref: 'members' },
     wild: { type: Boolean, populate: 'true' },
-    born: { type: Boolean, populate: 'false' },
+    breed: { type: Boolean, populate: 'false' },
     lvl: this.tameLvlSchema,
     parents: this.tameParentsSchema,
     stats: this.tameStatsSchema,
@@ -157,25 +179,25 @@ class Controller {
     colors: { type: [Schema.Types.ObjectId], ref: "colors" },
   });
 
-  private static tameModel = models['tames'] ?? model<tame<Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId>>('tames', this.tamesSchema);
+  private static model = models['tames'] ?? model<mongoTame>('tames', this.tamesSchema);
 
-  static convertTame(tame: tame<Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId>) {
+  static convertTame(tame: mongoTame) {
     return new Tame(tame)
   }
 
   static async findAll(): Promise<Tame[]> {
     return ((
-      await this.tameModel.find().lean()
+      await this.model.find().lean()
     ).map(
-      (tame: tame<Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId>) => this.convertTame(tame)
+      (tame: mongoTame) => this.convertTame(tame)
     ));
   }
 
   static async findOne(id: string): Promise<Tame> {
     return ((
-      await this.tameModel.findById(id).lean()
+      await this.model.findById(id).lean()
     ).then(
-      (tame: tame<Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId, Types.ObjectId>) => this.convertTame(tame)
+      (tame: mongoTame) => this.convertTame(tame)
     ))
   }
 
@@ -185,6 +207,12 @@ class Controller {
       tames.push(await this.findOne(idList[i]));
     }
     return tames;
+  }
+
+  static async createNew(tame: dataTame) {
+    delete tame._id
+    await this.model.create(tame);
+    return;
   }
 }
 

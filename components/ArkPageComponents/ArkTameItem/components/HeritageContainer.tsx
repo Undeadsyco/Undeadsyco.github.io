@@ -1,7 +1,7 @@
 import { useState } from 'react'; 
 import { BsArrowRightCircle, BsArrowRightCircleFill } from 'react-icons/bs';
 type props = {
-  status: 'wild'|'born';
+  status: 'wild'|'breed';
 }
 
 const HeratigeContainer = ({ status }: props) => {
@@ -15,7 +15,7 @@ const HeratigeContainer = ({ status }: props) => {
   
   return (
     <div className="HeratigeContainer" onMouseOver={() => switchIcon('dark')} onMouseOut={() => switchIcon('light')}>
-      {status === 'born' ?  content : <p>No Heratige</p>}
+      {status === 'breed' ?  content : <p>No Heratige</p>}
     </div>
   );
 }
