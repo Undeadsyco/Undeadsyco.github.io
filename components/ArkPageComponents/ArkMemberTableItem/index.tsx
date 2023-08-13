@@ -1,4 +1,5 @@
-import type { addedLevels, dataMember, memberStats, stats } from '../../../utils/database/collections/ark/types';
+import type { addedLevels, memberStats, stats } from '../../../utils/database/collections/ark/types';
+import type { Member } from '../../../utils/database/collections/ark/MembersModel';
 
 import { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
@@ -12,7 +13,7 @@ type statGroup = 'current' | 'affinity';
 type stat = 'health' | 'stamina' | 'oxygen' | 'food' | 'water' | 'weight' | 'melee';
 
 type props = {
-  member: dataMember;
+  member: Member;
 }
 
 const mapStats = (stats: stats | addedLevels) => Object.keys(stats).map((stat: string) => {

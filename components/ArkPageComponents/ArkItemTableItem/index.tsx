@@ -1,16 +1,14 @@
-import type { dataItem } from '../../../utils/database/collections/ark/types';
+import type { Item } from '../../../utils/database/collections/ark/ItemsModel';
 
 import { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
 
 import { BiRightArrowCircle, BiSolidRightArrowCircle } from 'react-icons/bi';
-
-type statGroup = 'current' | 'affinity';
-type stat = 'health' | 'stamina' | 'oxygen' | 'food' | 'water' | 'weight' | 'melee';
+import { capitalize } from '../../../utils/utilities';
 
 type props = {
-  item: dataItem;
+  item: Item;
 }
 
 export default function ArkItemTableItem({ item }: props) {
@@ -20,8 +18,12 @@ export default function ArkItemTableItem({ item }: props) {
   }, [item]);
 
   return (
-    <div className='arkDefaultContainer'>
-      
+    <div className='arkDefaultContainer arkItemTableItemContainer'>
+      <h3>Item: {capitalize(item.name)}</h3>
+      <h5>Level: {capitalize(item.level)}</h5>
+      <p>Item Type: {capitalize(item.type)}</p>
+      <p>Durability: {item.durability}</p>
+      <p>Damage: {item.damage}</p>
     </div>
   )
 } 

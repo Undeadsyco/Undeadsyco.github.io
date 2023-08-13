@@ -5,6 +5,7 @@
 @import "./PageComponentStyles/ArkHeader.css";
 @import "./PageComponentStyles/ArkTameTableItem.css";
 @import "./PageComponentStyles/ArkMemberTableItem.css";
+@import "./PageComponentStyles/ArkItemTableItem.css";
 @import "./PageComponentStyles/newTamePage.css";
 
 @layer components {

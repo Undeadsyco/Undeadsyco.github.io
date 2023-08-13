@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .ark-item-table-item-layout {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@layer components {
+  .arkItemTableItemContainer {
+    @apply h-20 p-1 ark-item-table-item-layout text-center
+  }
+
+  .arkItemTableItemContainer > h3,
+  .arkItemTableItemContainer > h5 {
+    @apply col-span-3
+  }
+
+  .arkItemTableItemContainer > p {
+    @apply col-span-2
+  }
+}

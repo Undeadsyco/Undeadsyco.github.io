@@ -17,7 +17,7 @@ type stats = {
   damage: number;
 }
 
-const StatsTable = ({ stats, affinity }: { stats: tameStats, affinity: stats }) => {
+const StatsTable = ({ stats }: { stats: tameStats }) => {
   const [modal, setModal] = useState(false);
   const [iconStyle, setIconStyle] = useState<'light' | 'dark'>('light')
   const [icon, setIcon] = useState(<BsArrowDownCircle />);
@@ -56,7 +56,7 @@ const StatsTable = ({ stats, affinity }: { stats: tameStats, affinity: stats }) 
       setWeight(stats.starting.weight);
     }
 
-  }, [modalTab, stats, affinity])
+  }, [modalTab, stats])
 
   const HeaderTab = ({ title }: { title: 'Starting' | 'Affinity' | 'Current' }) => (
     <p

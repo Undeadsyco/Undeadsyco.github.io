@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState, useReducer } from "react";
 import { v4 } from 'uuid';
 import axios from "axios";
 
-import { Header, ArkTameTableItem, ArkMemberTableItem, NewTameForm, ArkTableContainer } from "../../components/ArkPageComponents";
+import { Header, ArkTameTableItem, ArkMemberTableItem, NewTameForm, ArkTableContainer, ArkItemTableItem } from "../../components/ArkPageComponents";
 
 import useArkReducer, { reducerReturn } from "../../hooks/ark/useArkReducer";
 
@@ -52,19 +52,23 @@ export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps
       case '/ark/members':
         return (
           <ArkTableContainer>
-            {state.data.members.map((member: any) => <ArkMemberTableItem key={`${v4()}-${member._id}`} member={member} />)}
+            {state.data.members.map((member: Member) => <ArkMemberTableItem key={`${v4()}-${member._id}`} member={member} />)}
           </ArkTableContainer>
         );
       case '/ark/tames':
         return (
           <ArkTableContainer>
-            {state.data.tames.map((tame: any) => <ArkTameTableItem key={`${v4()}-${tame._id}`} tame={tame} />)}
+            {state.data.tames.map((tame: Tame) => <ArkTameTableItem key={`${v4()}-${tame._id}`} tame={tame} />)}
           </ArkTableContainer>
         );
       case '/ark/tames/new':
         return (<NewTameForm state={state} />);
       case '/ark/items':
-        return (<div>Items</div>);
+        return (
+          <ArkTableContainer>
+            {state.data.items.map((item: Item) => <ArkItemTableItem key={`${v4()}-${item._id}`} item={item} />)}
+          </ArkTableContainer>
+        );
       default:
         return (<div>Welcome to my Ark DataBase page</div>)
     }
