@@ -11,8 +11,8 @@ const LvlContent = ({ title, content }: { title: string, content: number }) => (
 const LvlContainer = ({ lvl: { wild, tamed, max } }: { lvl: lvls }) => (
   <div className="LvlContainer">
     <h3 className="LevelTitle">levels</h3>
-    {wild ? (<LvlContent title="Wild" content={wild} />): null}
-    <LvlContent title="Tamed" content={tamed} />
+    {tamed ? (<LvlContent title="Wild" content={wild} />): null}
+    <LvlContent title={tamed ? "tamed" : 'born'} content={tamed} />
     <LvlContent title="Max" content={max} />
   </div>
 )

@@ -10,11 +10,7 @@
 
 @layer components {
   .tameFormContainer {
-    @apply col-span-full row-span-full px-2 py-5 grid grid-flow-col gap-1 grid-cols-5 grid-rows-5
-  }
-
-  .newArkTameFormContainerDefault {
-    @apply bg-gray-500 border-4 border-black border-solid rounded-2xl
+    @apply w-full h-full px-2 py-5 grid grid-flow-col gap-1 grid-cols-5 grid-rows-5
   }
 
   /* New Ark Tame Name Form Styles */
@@ -27,7 +23,7 @@
   }
 
   .newArkTameNameFormInput>input {
-    @apply col-span-1 row-start-2 bg-white rounded-full w-5/6
+    @apply col-span-1 row-start-2 bg-white text-black rounded-full w-5/6
   }
 
   /* New Ark Tame Obtained status (tamed/breed) Form Styles */

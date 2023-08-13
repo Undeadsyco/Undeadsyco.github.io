@@ -4,7 +4,7 @@
 
 
 @layer components {
-  .ark-header-container {
+  .arkHeaderContainer {
     @apply 
     grid
     grid-rows-2
@@ -14,7 +14,7 @@
     px-8
   }
 
-  .ark-header-title {
+  .arkHeaderTitle {
     @apply
     col-span-full
     row-span-1
@@ -23,20 +23,14 @@
     text-lg
   }
 
-  .ark-header-collections-dropdown {
+  .arkHeaderCollectionsDropdown {
     @apply
     relative
     col-span-1
     col-start-1
-    bg-slate-400
-    text-black
-    border-slate-700
-    border-solid
-    border-2
-    rounded-full
   }
 
-  .ark-header-collections-dropdown:hover {
+  .arkHeaderCollectionsDropdown:hover {
     @apply
     cursor-pointer
     rounded-t-2xl
@@ -45,7 +39,7 @@
     text-white
   }
 
-  .ark-header-collections-dropdown-title {
+  .arkHeaderCollectionsDropdown-title {
     @apply
     text-center
     w-full
@@ -54,7 +48,7 @@
     items-center
   }
 
-  .ark-header-collections-dropdown-list {
+  .arkHeaderCollectionsDropdown-list {
     @apply
     hidden
     absolute
@@ -72,41 +66,36 @@
     
   }
 
-  .ark-header-collections-dropdown:hover .ark-header-collections-dropdown-list {
+  .arkHeaderCollectionsDropdown:hover .arkHeaderCollectionsDropdown-list {
     @apply
     block
     animate-slidedown
   }
 
-  .ark-header-collections-dropdown-item {
+  .arkHeaderCollectionsDropdownItem {
     @apply
     text-center
     text-white
   }
 
-  .ark-header-collections-dropdown-btn {
+  .arkHeaderCollectionsDropdown-btn {
     @apply
     hover:text-red-400
   }
 
-  .ark-header-filter {
+  .arkHeaderFilter {
     @apply
     col-span-1
     col-start-5
     text-center
   }
 
-  .ark-header-btn {
+  .arkHeaderBtn {
     @apply
-    bg-slate-400
     col-span-1
     col-start-9
     flex
     justify-center
-    border-2
-    border-slate-700
-    border-solid
-    rounded-full
     text-black
 
     hover:text-red-500

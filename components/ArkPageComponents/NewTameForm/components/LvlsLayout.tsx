@@ -13,7 +13,7 @@ type props = {
 }
 
 const LvlsLayout = ({ lvls, errors, touched, handleChange, handleBlur }: props) => (
-  <label role="group" htmlFor="lvl" className="newArkTameFormContainerDefault newArkTameLevelsFormContainer">
+  <label role="group" htmlFor="lvl" className="arkDefaultContainer newArkTameLevelsFormContainer">
     <p className="text-center w-full">Tame Levels</p>
     <FormInput inputConfig={{
       id: 'lvl.wild',

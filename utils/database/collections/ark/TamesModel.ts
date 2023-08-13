@@ -23,7 +23,7 @@ export class Tame implements propTame {
   public age!: age;
   public sex!: sex;
   public owner!: classRefType<Member>;
-  public wild!: boolean;
+  public tamed!: boolean;
   public breed!: boolean;
   public lvl!: tameLevels;
   public parents!: propParents;
@@ -34,20 +34,20 @@ export class Tame implements propTame {
   public colors!: classRefType<TameColor>[];
 
   constructor(tame: mongoTame) {
-    const { _id, name, age, sex, owner, wild, breed, lvl, parents, stats, deseased, nutered, species, colors } = tame;
+    const { _id, name, age, sex, owner, tamed, breed, lvl, parents, stats, deseased, nutered, species, colors } = tame;
     const { current, starting, affinity } = stats;
-    const { wild: wildLvl, tamed, max, added } = lvl;
+    const { wild: wildLvl, tamed: tamedLvl, max, added } = lvl;
 
     this._id = _id!.toString();
     this.name = name;
     this.age = age;
     this.sex = sex;
     this.owner = owner.toString()
-    this.wild = wild;
+    this.tamed = tamed;
     this.breed = breed;
     this.lvl = {
       wild: wildLvl,
-      tamed,
+      tamed: tamedLvl,
       max,
       added: this.convertLvls(added)
     };
@@ -168,7 +168,7 @@ class Controller {
     age: { type: String, enum: ['Baby', 'Juvenile', 'Adolescence', 'Adult'], },
     sex: { type: String, enum: ["M", "F"] },
     owner: { type: Schema.Types.ObjectId, ref: 'members' },
-    wild: { type: Boolean, populate: 'true' },
+    tamed: { type: Boolean, populate: 'true' },
     breed: { type: Boolean, populate: 'false' },
     lvl: this.tameLvlSchema,
     parents: this.tameParentsSchema,

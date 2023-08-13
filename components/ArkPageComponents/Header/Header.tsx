@@ -2,28 +2,27 @@ import { BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
 import DropDown from '../../globalComponents/DropDown';
 
 type arkHeaderProps = {
-  active: string;
-  setActive: Function;
-  collectionKeys: string[];
-  filterKeys: string[];
-  handleClick: Function;
-  handleHover?: Function;
+  currentView: string;
+  switchView: Function;
+  viewOptions: string[];
+  filterOptions: string[];
+  btnAction: Function;
   changeFilter: Function;
 }
-const ArkHeader = ({ active, setActive, collectionKeys, filterKeys, handleClick, changeFilter }: arkHeaderProps) => (
-  <header className="ark-header-container">
-    <h1 className="ark-header-title">Ark Collection Database</h1>
-    <DropDown keyList={collectionKeys} title='Collections' activeTab={active} handleClick={setActive} />
-    <div className="ark-header-filter">
-      <select onChange={(e) => changeFilter(e.target.value)} value={filterKeys[0]}>
+const ArkHeader = ({ currentView, switchView, viewOptions, filterOptions, btnAction, changeFilter }: arkHeaderProps) => (
+  <header className="arkHeaderContainer">
+    <h1 className="arkHeaderTitle">Ark Collection Database</h1>
+    <DropDown className="arkDefaultContainer arkHeaderCollectionsDropdown" dropOptions={viewOptions} title='Collections' selectedOption={currentView} dropAction={switchView} />
+    <div className={filterOptions ? 'arkDefaultContainer  arkHeaderFilter' : 'hidden' }>
+      <select onChange={(e) => changeFilter(e.target.value)} value={currentView} className='bg-transparent'>
         <option value="">Filter</option>
-        {filterKeys?.map((key) => (
+        {filterOptions?.map((key) => (
           <option key={key} value={key}>{key}</option>
         ))}
       </select>
     </div>
-    <div className="ark-header-btn">
-      <button onClick={() => handleClick()} >Add New</button>
+    <div className="arkDefaultContainer  arkHeaderBtn">
+      <button onClick={() => btnAction()}>Add New</button>
     </div>
   </header>
 );

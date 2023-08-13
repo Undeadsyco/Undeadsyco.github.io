@@ -9,7 +9,7 @@ type props = {
 }
 
 const SexLayout = ({ handleChange, handleBlur, error, touched }: props) => (
-  <label role="group" htmlFor="sex" className="newArkTameFormContainerDefault newArkTameSexFormContainerDefault">
+  <label role="group" htmlFor="sex" className="arkDefaultContainer newArkTameSexFormContainerDefault">
     <p className="col-span-2 text-center">Sex</p>
     <FormInput className="newArkTameSexFormInput" inputConfig={{
       id: 'F',

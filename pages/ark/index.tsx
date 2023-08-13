@@ -1,12 +1,11 @@
 import type { GetStaticProps, GetStaticPropsContext, GetStaticPropsResult, InferGetStaticPropsType } from "next";
-import type { ReducerAction, ReducerState, Reducer } from 'react';
 
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState, useReducer } from "react";
 import { v4 } from 'uuid';
 import axios from "axios";
 
-import { Header, ArkTameItem, NewTameForm } from "../../components/ArkPageComponents";
+import { Header, ArkTameTableItem, ArkMemberTableItem, NewTameForm, ArkTableContainer } from "../../components/ArkPageComponents";
 
 import useArkReducer, { reducerReturn } from "../../hooks/ark/useArkReducer";
 
@@ -17,6 +16,7 @@ import { Tame } from "../../utils/database/collections/ark/TamesModel";
 import { Item } from "../../utils/database/collections/ark/ItemsModel";
 import { TameColor } from "../../utils/database/collections/ark/TamesColorsModel";
 import { Species } from "../../utils/database/collections/ark/SpeciesModel";
+import { mapArkTameData } from "../../utils/utilities";
 
 export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext): Promise<GetStaticPropsResult<any>> => {
   const db = process.env.DATABASE;
@@ -28,11 +28,11 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 
   return ({
     props: {
-      members: members as Member[] ?? null,
-      tames: tames as Tame[] ?? null,
-      items: items as Item[] ?? null,
-      colors: colors as TameColor[] ?? null,
-      species: species as Species[] ?? null,
+      members: members as Member[],
+      tames: tames as Tame[],
+      items: items as Item[],
+      colors: colors as TameColor[],
+      species: species as Species[],
     },
     revalidate: 300,
   });
@@ -41,31 +41,34 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
 
-  const {state, dispatch} = useArkReducer() as reducerReturn;
+  const { state, dispatch } = useArkReducer() as reducerReturn;
 
   useEffect(() => {
-    if(props) dispatch({ type: 'set_init_state', data: props })
+    if (props) dispatch({ type: 'set_init_state', data: props });
   }, [props, dispatch]);
 
   const selectTab = useMemo(() => {
-    switch (state.tab) {
-      case 'members':
-        return (<div>Members</div>);
-      case 'tames':
-        return (state.data?.tames?.map((tame: any) => <ArkTameItem key={`${v4()}-${tame._id}`} tame={tame} />));
-      case 'items':
+    switch (router.asPath) {
+      case '/ark/members':
+        return (
+          <ArkTableContainer>
+            {state.data.members.map((member: any) => <ArkMemberTableItem key={`${v4()}-${member._id}`} member={member} />)}
+          </ArkTableContainer>
+        );
+      case '/ark/tames':
+        return (
+          <ArkTableContainer>
+            {state.data.tames.map((tame: any) => <ArkTameTableItem key={`${v4()}-${tame._id}`} tame={tame} />)}
+          </ArkTableContainer>
+        );
+      case '/ark/tames/new':
+        return (<NewTameForm state={state} />);
+      case '/ark/items':
         return (<div>Items</div>);
       default:
-        return <NewTameForm state={state} />
-        // return (<div>Welcome to my Ark DataBase page</div>)
+        return (<div>Welcome to my Ark DataBase page</div>)
     }
-  }, [state]);
-
-  const checkConnection = async () => {
-    const req = await axios.get(`http://localhost:3000/api/ark/${state.tab}/new`);
-    const res = await req.data;
-    if (res.status === 'success') router.push(`/ark/new?form=${state.tab}`, '/ark/tame/new');
-  }
+  }, [router, state]);
 
   if (!state.data) {
     return (<div className="text-white">Loading...</div>)
@@ -75,12 +78,19 @@ export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps
     <div className="ArkPage">
 
       <Header
-        active={state.tab}
-        setActive={(tab: string) => dispatch({ type: 'set_tab', data: tab })}
-        collectionKeys={state.keys?.collection as string[]}
-        filterKeys={state.keys?.tame as string[]}
-        handleClick={checkConnection}
-        changeFilter={(filter: string) => dispatch({ type: 'set_filter', data: filter })}
+        currentView={router.asPath.split('/')[router.asPath.split('/').length - 1]}
+        switchView={(tab: string) => router.push('/ark', `ark/${tab}`, { shallow: true })}
+        viewOptions={state.keys?.collection as string[]}
+        filterOptions={state.keys?.tame as string[]}
+        btnAction={async (): Promise<void> => {
+          const req = await axios.get(`http://localhost:3000/api/ark`);
+          const res = await req.data;
+          if (res.status === 'success') router.push('/ark', `${router.asPath}/new`);
+          else alert('you must be online to add new tames to tha database');
+        }}
+        changeFilter={(filter: string) => {
+          dispatch({ type: 'set_filter', data: filter });
+        }}
       />
 
       <div className="ArkContentContainer">

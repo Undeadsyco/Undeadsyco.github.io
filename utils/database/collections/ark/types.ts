@@ -146,7 +146,7 @@ type tame<
   age: age,
   sex: sex,
   owner: oType,
-  wild: boolean,
+  tamed: boolean,
   breed: boolean,
   lvl: tameLevels,
   parents: parents<pType>,

@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .text-xxs {
+    font-size: 0.75rem
+      /* 12px */
+    ;
+    line-height: 0.75rem
+      /* 16px */
+    ;
+  }
+}
+
+@layer components {
+  .tameItem {
+    @apply p-3 h-40 col-span-1 rounded-3xl text-black grid grid-cols-4 grid-rows-4 justify-items-center items-center
+  }
+
+  .tameImg {
+    @apply w-16 h-16 bg-black rounded-2xl row-span-2 col-span-1
+  }
+
+  .tameNameContainer {
+    @apply w-full flex text-center justify-around items-center row-span-1 col-span-3
+  }
+
+  .TameName {
+    @apply font-bold text-lg
+  }
+
+  .Deceased {
+    @apply text-red-700 font-bold
+  }
+
+  .DeceasedNameDecor {
+    @apply font-normal line-through decoration-red-700 decoration-4
+  }
+
+  .TameSexContainer {
+    @apply w-[80%] flex justify-around items-center
+  }
+
+  .AgeContainer {
+    @apply w-full col-span-2 col-start-3 row-span-1 row-start-2 flex justify-around
+  }
+
+  .AgeContent {
+    @apply w-[55%] flex justify-between
+  }
+
+  .TameAgeTimer {
+    @apply w-[35%] text-xxs text-center flex justify-center items-center
+  }
+
+  .LvlContainer {
+    @apply w-full col-span-4 row-span-1 grid grid-cols-4 text-sm
+  }
+
+  .LevelTitle {
+    @apply flex text-center text-lg justify-center items-center
+  }
+
+  .LevelContent {
+    @apply flex flex-col justify-center items-center
+  }
+
+  .StatsContainer {
+    @apply w-full row-span-1 col-span-2 p-2 relative
+  }
+
+  .StatsTitleContainer {
+    @apply w-full flex justify-around items-center hover:cursor-pointer
+  }
+
+  .TameStatsModal {
+    @apply absolute -right-10 w-48 h-48 py-2 px-1
+  }
+
+  .TameStatsModalHeader {
+    @apply col-span-2 text-xs p-1 flex justify-between
+  }
+
+  .TameStatsModalHeaderTab {
+    @apply flex p-1 border-r-2 border-b-2 border-black rounded-br-md font-bold hover:cursor-pointer hover:text-yellow-500
+  }
+
+  .TameStatsModalHeaderTabActive {
+    @apply text-red-600 hover:text-red-600
+  }
+
+  .HeratigeContainer {
+    @apply w-full row-span-1 col-span-2 hover:cursor-pointer
+  }
+}

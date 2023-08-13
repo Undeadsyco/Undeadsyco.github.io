@@ -1,7 +1,7 @@
 import { useState } from 'react'; 
 import { BsArrowRightCircle, BsArrowRightCircleFill } from 'react-icons/bs';
 type props = {
-  status: 'wild'|'breed';
+  status: 'tamed'|'breed';
 }
 
 const HeratigeContainer = ({ status }: props) => {

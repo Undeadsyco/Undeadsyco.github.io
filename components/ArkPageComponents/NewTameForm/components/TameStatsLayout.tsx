@@ -11,7 +11,7 @@ type props = {
 }
 
 const TameStatsLayout = ({ stats, errors, touched, handleChange, handleBlur }: props) => (
-  <label role="group" htmlFor="stats" className="newArkTameFormContainerDefault newArkTameStatsFormContainer">
+  <label role="group" htmlFor="stats" className="arkDefaultContainer newArkTameStatsFormContainer">
     <p className="text-center self-center">Tame Stats</p>
     <label role="group" htmlFor="stats.starting" className="row-span-2 px-1">
       <StatsLayout

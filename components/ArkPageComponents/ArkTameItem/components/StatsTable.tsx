@@ -8,6 +8,7 @@ import {
   BsArrowUpCircle,
   BsArrowUpCircleFill,
 } from 'react-icons/bs';
+import { tameStats } from '../../../../utils/database/collections/ark/types';
 
 type stats = {
   health: number;
@@ -16,15 +17,15 @@ type stats = {
   damage: number;
 }
 
-const StatsTable = ({ stats, affinity }: { stats: stats, affinity: stats }) => {
+const StatsTable = ({ stats, affinity }: { stats: tameStats, affinity: stats }) => {
   const [modal, setModal] = useState(false);
   const [iconStyle, setIconStyle] = useState<'light' | 'dark'>('light')
   const [icon, setIcon] = useState(<BsArrowDownCircle />);
-  const [modalTab, setModalTab] = useState<'Tamed' | 'Affinity' | 'Current'>('Tamed');
-  const [health, setHealth] = useState<number>(stats.health);
-  const [stamina, setStamina] = useState<number>(stats.health);
-  const [damage, setDamage] = useState<number>(stats.health);
-  const [weight, setWeight] = useState<number>(stats.health);
+  const [modalTab, setModalTab] = useState<'Starting' | 'Affinity' | 'Current'>('Starting');
+  const [health, setHealth] = useState<number>(stats.starting.health);
+  const [stamina, setStamina] = useState<number>(stats.starting.stamina);
+  const [damage, setDamage] = useState<number>(stats.starting.melee);
+  const [weight, setWeight] = useState<number>(stats.starting.weight);
 
   useEffect(() => {
     if (modal) {
@@ -38,21 +39,26 @@ const StatsTable = ({ stats, affinity }: { stats: stats, affinity: stats }) => {
 
   useEffect(() => {
     if (modalTab === 'Affinity') {
-      setHealth(affinity.health);
-      setStamina(affinity.stamina);
-      setDamage(affinity.damage);
-      setWeight(affinity.weight);
-    } else if (modalTab === 'Current') { }
+      setHealth(stats.affinity.health);
+      setStamina(stats.affinity.stamina);
+      setDamage(stats.affinity.melee);
+      setWeight(stats.affinity.weight);
+    } else if (modalTab === 'Current') { 
+      setHealth(stats.current.health);
+      setStamina(stats.current.stamina);
+      setDamage(stats.current.melee);
+      setWeight(stats.current.weight);
+    }
     else {
-      setHealth(stats.health);
-      setStamina(stats.stamina);
-      setDamage(stats.damage);
-      setWeight(stats.weight);
+      setHealth(stats.starting.health);
+      setStamina(stats.starting.stamina);
+      setDamage(stats.starting.melee);
+      setWeight(stats.starting.weight);
     }
 
   }, [modalTab, stats, affinity])
 
-  const HeaderTab = ({ title }: { title: 'Tamed' | 'Affinity' | 'Current' }) => (
+  const HeaderTab = ({ title }: { title: 'Starting' | 'Affinity' | 'Current' }) => (
     <p
       className={`TameStatsModalHeaderTab ${modalTab === title ? 'TameStatsModalHeaderTabActive' : null}`}
       onClick={() => setModalTab(title)}
@@ -75,11 +81,11 @@ const StatsTable = ({ stats, affinity }: { stats: stats, affinity: stats }) => {
         <h3>Tame Stats</h3>
         <span>{icon}</span>
       </div>
-      <div className={modal ? 'TameStatsModal' : 'hidden'}>
+      <div className={modal ? 'arkDefaultContainer TameStatsModal' : 'hidden'}>
         <div className='TameStatsModalHeader'>
-          <HeaderTab title='Tamed' />
-          <HeaderTab title='Affinity' />
+          <HeaderTab title='Starting' />
           <HeaderTab title='Current' />
+          <HeaderTab title='Affinity' />
         </div>
         <div className='p-1 flex flex-col justify-between items-center h-[80%]'>
           <div className='w-[85%] flex justify-between items-center'>

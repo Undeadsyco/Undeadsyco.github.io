@@ -8,12 +8,12 @@ type parents = {
 }
 
 const ArkTameItem = ({ tame }: { tame: any }) => (
-  <div className="TameItem">
-    <div className="TameImg"> {/* <Image  /> */} </div>
+  <div className="arkDefaultContainer tameItem">
+    <div className="tameImg"> {/* <Image  /> */} </div>
     <Link href={{
       pathname: `/ark/${tame.id}`,
       query: tame
-    }} className="TameNameContainer"><Name name={tame.name} deceased={tame.deceased} path={tame.id} /></Link>
+    }} className="tameNameContainer"><Name name={tame.name} deceased={tame.deceased} path={tame.id} /></Link>
     <Sex sex={tame.sex} />
     <Age age="Adult" />
     <Levels lvl={tame.lvl} />

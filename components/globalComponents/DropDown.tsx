@@ -1,23 +1,24 @@
 import { BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
 
 type props = {
+  className: string;
   title: string;
-  keyList: string[];
-  activeTab: string;
-  handleClick: Function;
+  selectedOption: string;
+  dropOptions: string[];
+  dropAction: Function;
 }
 
-export default function DropDown({ title, keyList, handleClick, activeTab }: props) {
+export default function DropDown({ className, title, dropOptions, dropAction, selectedOption }: props) {
   return (
-    <div className="ark-header-collections-dropdown">
-    <h3 className="ark-header-collections-dropdown-title">
+    <div className={className}>
+    <h3 className="arkHeaderCollectionsDropdown-title">
       <span>{title}</span>
       <span><BsArrowDownCircle /></span>
     </h3>
-    <ul className="ark-header-collections-dropdown-list">
-      {keyList?.map((key) => (
-        <li key={key} className={`${activeTab === key ? 'text-yellow-500' : null} ark-header-collections-dropdown-item`}>
-          <button onClick={() => handleClick(key)} className="ark-header-collections-dropdown-btn">{key}</button>
+    <ul className="arkHeaderCollectionsDropdown-list">
+      {dropOptions?.map((key) => (
+        <li key={key} className={`${selectedOption === key ? 'text-yellow-500' : null} arkHeaderCollectionsDropdownItem`}>
+          <button onClick={() => dropAction(key)} className="arkHeaderCollectionsDropdown-btn">{key}</button>
         </li>
       ))}
     </ul>

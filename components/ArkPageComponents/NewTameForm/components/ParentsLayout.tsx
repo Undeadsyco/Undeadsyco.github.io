@@ -17,7 +17,7 @@ type props = {
 }
 
 const ParentsLayout = ({ parents, state, errors, touched, handleChange, handleBlur }: props) => (
-  <label role="group" htmlFor="parents" className='newArkTameFormContainerDefault newArkTameParentsFormContainer' >
+  <label role="group" htmlFor="parents" className='arkDefaultContainer newArkTameParentsFormContainer' >
     <p className="text-center">Parents</p>
     <FormSelect<string> className='newArkTameParentsFormInput' inputConfig={{
       id: 'parents.mother',

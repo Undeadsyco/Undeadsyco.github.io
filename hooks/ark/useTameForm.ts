@@ -28,7 +28,7 @@ const useTameForm = () => {
     age: 'Adult',
     sex: 'F',
     owner: '',
-    wild: true,
+    tamed: true,
     breed: false,
     lvl: {
       wild: 0,
@@ -92,7 +92,7 @@ const useTameForm = () => {
     age: string<age>().required().default('Adult'),
     sex: string<sex>().required().default('F'),
     owner: string().required().default(''),
-    wild: bool().required().default(true),
+    tamed: bool().required().default(true),
     breed: bool().required().default(false),
     lvl: tameLvlValSchema,
     parents: parentsValSchema,

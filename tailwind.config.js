@@ -7,11 +7,17 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      sm: '480px',
+      md: '768px',
+      lg: '976px',
+      xl: '1440px',
+    },
     extend: {
       keyframes: {
         slidedown: {
           '0%': { height: '0' },
-          '100%': { height: 'full'}
+          '100%': { height: 'full' }
         },
       },
       animation: {

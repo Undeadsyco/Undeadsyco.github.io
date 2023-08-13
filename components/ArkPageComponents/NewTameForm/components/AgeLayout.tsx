@@ -10,7 +10,7 @@ type props = {
 }
 
 const AgeLayout = ({ error, touched, handleChange, handleBlur }: props) => (
-  <label role="group" htmlFor="age" className={`newArkTameFormContainerDefault newArkTameAgeFormContainerDefault ${touched && error ? 'newArkTameAgeFormContainerWithError' : 'newArkTameAgeFormContainerWithoutError'}`}>
+  <label role="group" htmlFor="age" className={`arkDefaultContainer newArkTameAgeFormContainerDefault ${touched && error ? 'newArkTameAgeFormContainerWithError' : 'newArkTameAgeFormContainerWithoutError'}`}>
     <p className="col-span-full text-center">Age</p>
     {['Baby', 'Juvenile', 'Adolescence', 'Adult'].map((age) => (
       <FormInput className="newArkTameAgeFormInput" key={age} inputConfig={{

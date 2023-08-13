@@ -19,7 +19,7 @@ export default function NewTameForm({ state }: props) {
 
   return (
     <form className="tameFormContainer" onSubmit={tameFormik.handleSubmit} onReset={tameFormik.handleReset}>
-      <FormInput className="newArkTameFormContainerDefault newArkTameNameFormInput" inputConfig={{
+      <FormInput className="arkDefaultContainer newArkTameNameFormInput" inputConfig={{
         id: 'name',
         type: 'text',
         value: tameFormik.values.name,
@@ -33,14 +33,14 @@ export default function NewTameForm({ state }: props) {
       }} />
       <AgeLayout error={tameFormik.errors.age} touched={tameFormik.touched.age} handleChange={tameFormik.handleChange} handleBlur={tameFormik.handleBlur} />
       <SexLayout error={tameFormik.errors.sex} touched={tameFormik.touched.sex} handleChange={tameFormik.handleChange} handleBlur={tameFormik.handleBlur} />
-      <FormInput className="newArkTameFormContainerDefault halfSizeDefaultFormInput newArkTameObtainedFormInput" inputConfig={{
-        id: 'wild',
+      <FormInput className="arkDefaultContainer halfSizeDefaultFormInput newArkTameObtainedFormInput" inputConfig={{
+        id: 'tamed',
         name: 'obtained',
-        label: 'wild',
+        label: 'tamed',
         type: 'radio',
-        value: 'wild',
+        value: 'tamed',
         onChange: () => {
-          tameFormik.setFieldValue('wild', true);
+          tameFormik.setFieldValue('tamed', true);
           tameFormik.setFieldValue('breed', false);
         },
         onBlur: tameFormik.handleBlur,
@@ -50,14 +50,14 @@ export default function NewTameForm({ state }: props) {
           readOnly: false,
         }
       }} />
-      <FormInput className="newArkTameFormContainerDefault halfSizeDefaultFormInput newArkTameObtainedFormInput newArkTameBreedFormInput" inputConfig={{
+      <FormInput className="arkDefaultContainer halfSizeDefaultFormInput newArkTameObtainedFormInput newArkTameBreedFormInput" inputConfig={{
         id: 'breed',
         name: 'obtained',
         label: 'breed',
         type: 'radio',
         value: 'breed',
         onChange: () => {
-          tameFormik.setFieldValue('wild', false);
+          tameFormik.setFieldValue('tamed', false);
           tameFormik.setFieldValue('breed', true);
         },
         onBlur: tameFormik.handleBlur,
@@ -67,7 +67,7 @@ export default function NewTameForm({ state }: props) {
           readOnly: false,
         }
       }} />
-      <FormInput className="newArkTameFormContainerDefault halfSizeDefaultFormInput newArkTameStatusFormInput" inputConfig={{
+      <FormInput className="arkDefaultContainer halfSizeDefaultFormInput newArkTameStatusFormInput" inputConfig={{
         id: 'nutered',
         type: 'checkbox',
         value: 'nutered',
@@ -79,7 +79,7 @@ export default function NewTameForm({ state }: props) {
           readOnly: false,
         }
       }} />
-      <FormInput className="newArkTameFormContainerDefault halfSizeDefaultFormInput newArkTameStatusFormInput newArkTameNuteredFormInput" inputConfig={{
+      <FormInput className="arkDefaultContainer halfSizeDefaultFormInput newArkTameStatusFormInput newArkTameNuteredFormInput" inputConfig={{
         id: 'deseased',
         type: 'checkbox',
         value: 'deseased',
@@ -91,7 +91,7 @@ export default function NewTameForm({ state }: props) {
           readOnly: false,
         }
       }} />
-      <FormSelect<string> className="newArkTameFormContainerDefault col-start-2" inputConfig={{
+      <FormSelect<string> className="arkDefaultContainer col-start-2" inputConfig={{
         id: 'owner',
         value: tameFormik.values.owner,
         options: state.data?.members!,
@@ -104,7 +104,7 @@ export default function NewTameForm({ state }: props) {
           readOnly: false,
         }
       }} />
-      <FormSelect<string> className="newArkTameFormContainerDefault col-start-2" inputConfig={{
+      <FormSelect<string> className="arkDefaultContainer col-start-2" inputConfig={{
         id: 'species',
         value: tameFormik.values.species,
         options: state.data?.species!,
@@ -125,7 +125,7 @@ export default function NewTameForm({ state }: props) {
         handleChange={tameFormik.handleChange}
         handleBlur={tameFormik.handleBlur}
       />
-      {/* <FormSelect<readonly string[]> className="newArkTameFormContainerDefault" inputConfig={{
+      {/* <FormSelect<readonly string[]> className="arkDefaultContainer" inputConfig={{
         id: 'colors',
         value: tameFormik.values.colors,
         options: state.data?.colors?.map((color) => color.color!)!,
@@ -152,7 +152,7 @@ export default function NewTameForm({ state }: props) {
         handleChange={tameFormik.handleChange}
         handleBlur={tameFormik.handleBlur}
       />
-      <div className="newArkTameFormContainerDefault flex justify-evenly items-center">
+      <div className="arkDefaultContainer flex justify-evenly items-center">
         <input type="reset" value="Reset" className="bg-black border-white border-solid border-2 px-2 py-1 rounded-full" />
         <input type="submit" value="Submit" className="bg-black border-white border-solid border-2 px-2 py-1 rounded-full" />
       </div>
