@@ -22,11 +22,6 @@ export class Item implements propItem {
     this.damage = damage;
     this.owner = owner.toString();
   }
-
-  public populate(owner: Member): popPropItem {
-    this.owner = owner;
-    return this as popPropItem;
-  }
 }
 
 export default class Controller {

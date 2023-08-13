@@ -62,12 +62,6 @@ export class Member implements propMember {
       melee,
     });
   }
-
-  public populte({ tames, items }: populateOpts): popPropMember {
-    if (tames) this.tames = tames;
-    if (items) this.items = items;
-    return (this as popPropMember);
-  }
 }
 
 export default class Controller {

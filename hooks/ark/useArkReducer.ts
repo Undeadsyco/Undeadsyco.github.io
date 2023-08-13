@@ -75,20 +75,27 @@ const useArkReducer = (): reducerReturn => {
   const reducer = (state: reducerState, { type, data }: reducerAction): reducerState => {
     switch (type) {
       case 'set_init_state': {
+        const arkData = data as props;
         return ({
           ...state,
-          data,
+          data: {
+            ...arkData,
+            items: arkData.items.map((item: Item) => ({
+              ...item,
+              owner: arkData.members.filter((member: Member) => member._id === item.owner)[0],
+            }))
+          },
           keys: {
-            collection: Object.keys(data),
-            tame: Object.keys(data.tames[0]).splice(1),
-            member: Object.keys(data.members[0]).splice(1),
-            item: Object.keys(data.items[0]).splice(1),
-            species: Object.keys(data.species[0]).splice(1),
-            color: Object.keys(data.colors[0]).splice(1),
+            collection: Object.keys(arkData),
+            tame: Object.keys(arkData.tames[0]).splice(1),
+            member: Object.keys(arkData.members[0]).splice(1),
+            item: Object.keys(arkData.items[0]).splice(1),
+            species: Object.keys(arkData.species[0]).splice(1),
+            color: Object.keys(arkData.colors[0]).splice(1),
           },
           filter: {
             isFiltered: false,
-            value: data.tames.length > 0 ? Object.keys(data.tames[0]).splice(1)[0] : '',
+            value: arkData.tames.length > 0 ? Object.keys(arkData.tames[0]).splice(1)[0] : '',
           },
         });
       }

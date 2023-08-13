@@ -92,14 +92,6 @@ export class Tame implements propTame {
       melee,
     });
   }
-
-  public populte({ owner, parents, species, colors }: populateOpts): popPropTame {
-    if (owner) this.owner = owner;
-    if (parents) this.parents = parents;
-    if (species) this.species = species;
-    if (colors) this.colors = colors;
-    return this as popPropTame
-  }
 }
 
 class Controller {

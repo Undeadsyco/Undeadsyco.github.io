@@ -6,21 +6,28 @@
   .ark-item-table-item-layout {
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
   }
 }
 
 @layer components {
   .arkItemTableItemContainer {
-    @apply h-20 p-1 ark-item-table-item-layout text-center
+    @apply h-28 p-1 ark-item-table-item-layout text-center
   }
 
-  .arkItemTableItemContainer > h3,
-  .arkItemTableItemContainer > h5 {
+  .arkItemTableItemContainer > .arkItemName,
+  .arkItemTableItemContainer > .arkItemLevel {
     @apply col-span-3
   }
 
-  .arkItemTableItemContainer > p {
+  .arkItemTableItemContainer > .arkItemOwnerName, 
+  .arkItemTableItemContainer > .arkItemOwnerWorld {
+    @apply col-span-3 row-start-2
+  }
+
+  .arkItemTableItemContainer > .arkItemItemType, 
+  .arkItemTableItemContainer > .arkItemDurability, 
+  .arkItemTableItemContainer > .arkItemDamage {
     @apply col-span-2
   }
 }
