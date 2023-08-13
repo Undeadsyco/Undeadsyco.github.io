@@ -80,10 +80,19 @@ const useArkReducer = (): reducerReturn => {
           ...state,
           data: {
             ...arkData,
+            tames: arkData.tames.map((tame: Tame) => ({
+              ...tame,
+              owner: arkData.members.filter((member: Member) => member._id === tame.owner)[0],
+            })),
             items: arkData.items.map((item: Item) => ({
               ...item,
               owner: arkData.members.filter((member: Member) => member._id === item.owner)[0],
-            }))
+            })),
+            members: arkData.members.map((member: Member) => ({
+              ...member,
+              tames: member.tames.map((id) => arkData.tames.filter((tame: Tame) => tame._id === id)[0]),
+              items: member.items.map((id) => arkData.items.filter((item: Item) => item._id === id)[0]),
+            })),
           },
           keys: {
             collection: Object.keys(arkData),

@@ -49,16 +49,16 @@ export class Tame implements propTame {
       wild: wildLvl,
       tamed: tamedLvl,
       max,
-      added: this.convertLvls(added)
+      added: Tame.convertLvls(added)
     };
     this.parents = {
       mother: parents?.mother?.toString() ?? undefined,
       father: parents?.father?.toString() ?? undefined,
     }
     this.stats = {
-      starting: this.convertStats(starting),
-      current: this.convertStats(current),
-      affinity: this.convertStats(affinity),
+      starting: Tame.convertStats(starting),
+      current: Tame.convertStats(current),
+      affinity: Tame.convertStats(affinity),
     };
     this.deseased = deseased;
     this.nutered = nutered;
@@ -66,7 +66,7 @@ export class Tame implements propTame {
     this.colors = colors?.map((color) => color.toString());
   }
 
-  private convertStats(stats: stats) {
+  private static convertStats(stats: stats) {
     const { health, stamina, oxygen, food, water, weight, melee } = stats;
     return ({
       health,
@@ -79,7 +79,7 @@ export class Tame implements propTame {
     });
   }
 
-  private convertLvls(lvls: addedLevels) {
+  private static convertLvls(lvls: addedLevels) {
     const { total, health, stamina, oxygen, food, water, weight, melee } = lvls;
     return ({
       total,

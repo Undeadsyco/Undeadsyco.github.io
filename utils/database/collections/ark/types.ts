@@ -8,7 +8,7 @@ import { Item } from './ItemsModel';
 
 export type idRefTypes = (string | Types.ObjectId);
 export type dataRefTypes<dataClass> = (string | Types.ObjectId | dataClass);
-export type classRefType<classType> = (string|classType);
+export type classRefType<classType> = (string | classType);
 
 export type stats = {
   health: number
@@ -32,10 +32,7 @@ export type addedLevels = {
 }
 
 //items
-type item<
-  idType extends idRefTypes,
-  oType extends dataRefTypes<Member>,
-> = {
+type item<idType extends idRefTypes, oType extends dataRefTypes<Member>> = {
   _id: idType;
   type: string;
   name: string;
@@ -62,11 +59,7 @@ export type memberLevels = {
   added: addedLevels;
 }
 
-type member<
-  idType extends idRefTypes,
-  tType extends dataRefTypes<Tame>,
-  iType extends dataRefTypes<Item>,
-> = {
+type member<idType extends idRefTypes, tType extends dataRefTypes<Tame>, iType extends dataRefTypes<Item>> = {
   _id: idType;
   name: string;
   world: string;
@@ -129,18 +122,12 @@ export type mongoParents = parents<Types.ObjectId>
 export type propParents = parents<classRefType<Tame>>
 export type dataParents = parents<string>
 export type popPropParents = parents<Tame>
- 
+
 export type sex = "M" | "F";
 
 export type age = "Baby" | "Juvenile" | "Adolescence" | "Adult";
 
-type tame<
-  idType extends idRefTypes,
-  oType extends dataRefTypes<Member>,
-  pType extends dataRefTypes<Tame>,
-  sType extends dataRefTypes<Species>,
-  cType extends dataRefTypes<TameColor>,
-> = {
+type tame<idType extends idRefTypes, oType extends dataRefTypes<Member>, pType extends dataRefTypes<Tame>, sType extends dataRefTypes<Species>, cType extends dataRefTypes<TameColor>> = {
   _id?: idType
   name: string,
   age: age,

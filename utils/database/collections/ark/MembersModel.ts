@@ -26,17 +26,17 @@ export class Member implements propMember {
     this.lvl = {
       max: lvl.max,
       current: lvl.current,
-      added: this.convertLvls(lvl.added),
+      added: Member.convertLvls(lvl.added),
     };
     this.stats = {
-      current: this.convertStats(stats.current),
-      affinity: this.convertStats(stats.affinity),
+      current: Member.convertStats(stats.current),
+      affinity: Member.convertStats(stats.affinity),
     };
     this.tames = tames.map((tame) => tame.toString());
     this.items = items.map((item) => item.toString());
   }
 
-  private convertStats(stats: stats) {
+  private static convertStats(stats: stats) {
     const { health, stamina, oxygen, food, water, weight, melee } = stats;
     return ({
       health,
@@ -49,7 +49,7 @@ export class Member implements propMember {
     });
   }
 
-  private convertLvls(lvls: addedLevels) {
+  private static convertLvls(lvls: addedLevels) {
     const { total, health, stamina, oxygen, food, water, weight, melee } = lvls;
     return ({
       total,
