@@ -10,7 +10,7 @@ type arkHeaderProps = {
   changeFilter: Function;
 }
 const ArkHeader = ({ currentView, switchView, viewOptions, filterOptions, btnAction, changeFilter }: arkHeaderProps) => (
-  <header className="arkHeaderContainer">
+  <header className="arkHeaderContainer relative z-20">
     <h1 className="arkHeaderTitle">Ark Collection Database</h1>
     <DropDown className="arkDefaultContainer arkHeaderCollectionsDropdown" dropOptions={viewOptions} title='Collections' selectedOption={currentView} dropAction={switchView} />
     <div className={filterOptions ? 'arkDefaultContainer  arkHeaderFilter' : 'hidden' }>

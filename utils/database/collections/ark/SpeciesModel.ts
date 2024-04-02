@@ -39,18 +39,19 @@ export default class Controller {
   }
 
   static async findAll(): Promise<Species[]> {
-    return (await this.speciesModel.find().lean()).map((species) => this.convertSpecies(species))
+    return await this.speciesModel.find();
   }
 
-  static async findOne(id: string): Promise<Species> {
-    return (await this.speciesModel.findById(id).lean()).then((species: mongoSpecies) => this.convertSpecies(species));
+  static async findOne(id: string): Promise<Species|null> {
+    return await this.speciesModel.findById(id);
   }
 
   static async findList(idList: string[]): Promise<Species[]> {
-    const species: Species[] = [];
+    const speciesList: Species[] = [];
     for (let i = 0; i < idList.length; i += 1) {
-      species.push(await this.findOne(idList[i]));
+      const species = await this.findOne(idList[i])
+      if (species) speciesList.push(species);
     }
-    return species;
+    return speciesList;
   }
 }

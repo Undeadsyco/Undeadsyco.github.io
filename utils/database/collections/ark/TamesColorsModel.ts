@@ -31,21 +31,18 @@ export default class TameColorController {
   }
 
   static async findAll(): Promise<TameColor[]> {
-    return (await this.colorModel.find().lean()).map(this.convertColor);
+    return await this.colorModel.find();
   }
 
-  static async findOne(id: number): Promise<TameColor> {
-    return ((
-      await this.colorModel.findOne({ colorID: id }).lean()
-    ).then(
-      (color: mongoColor) => this.convertColor(color)
-    ));
+  static async findOne(id: number): Promise<TameColor | null> {
+    return await this.colorModel.findOne({ colorID: id });
   }
 
   static async findList(idList: number[]): Promise<TameColor[]> {
     const colors = [];
     for (let i = 0; i < idList.length; i += 1) {
-      colors.push(await this.findOne(idList[i]));
+      const color = await this.findOne(idList[i]);
+      if (color) colors.push(color);
     }
     return colors;
   }

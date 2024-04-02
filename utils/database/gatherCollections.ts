@@ -19,7 +19,7 @@ export async function createConnection(database: string) {
 }
 
 async function getArkCollections() {
-  return JSON.stringify({
+  return ({
     colors: await TamesColorsController.findAll(),
     tames: await TamesController.findAll(),
     members: await MembersController.findAll(),

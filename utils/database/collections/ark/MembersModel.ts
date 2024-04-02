@@ -134,17 +134,18 @@ export default class Controller {
   }
 
   static async findAll(): Promise<Member[]> {
-    return (await this.membersModel.find().lean()).map((member: mongoMember) => this.convertMember(member));
+    return await this.membersModel.find();
   }
 
-  static async findOne(id: string) {
-    return (await this.membersModel.findById(id).lean()).then((member: mongoMember) => this.convertMember(member));
+  static async findOne(id: string): Promise<Member | null>{
+    return await this.membersModel.findById(id);
   }
 
   static async findList(idList: string[]): Promise<Member[]> {
     const members: Member[] = [];
     for (let i = 0; i < idList.length; i += 1) {
-      members.push(await this.findOne(idList[i]));
+      const member = await this.findOne(idList[i]);
+      if (member) members.push(member);
     }
     return members;
   }

@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState, useReducer } from "react";
 import { v4 } from 'uuid';
 import axios from "axios";
 
-import { Header, ArkTameTableItem, ArkMemberTableItem, NewTameForm, ArkTableContainer, ArkItemTableItem } from "../../components/ArkPageComponents";
+import { Header, ArkTameTableItem, ArkMemberTableItem, NewTameForm, ArkTableContainer, ArkItemTableItem, ArkSpeciesTableItem } from "../../components/ArkPageComponents";
 
 import useArkReducer, { reducerReturn } from "../../hooks/ark/useArkReducer";
 
@@ -16,23 +16,22 @@ import { Tame } from "../../utils/database/collections/ark/TamesModel";
 import { Item } from "../../utils/database/collections/ark/ItemsModel";
 import { TameColor } from "../../utils/database/collections/ark/TamesColorsModel";
 import { Species } from "../../utils/database/collections/ark/SpeciesModel";
-import { mapArkTameData } from "../../utils/utilities";
 
 export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext): Promise<GetStaticPropsResult<any>> => {
   const db = process.env.DATABASE;
 
   if (!db) throw new Error('Database missing! Please provide missing info to establish connection');
 
-  const dataString = await getData(db as string);
-  const { tames, members, items, colors, species } = JSON.parse(dataString as string);
+  const data = await getData('ark');
+  console.log(data?.members)
 
   return ({
     props: {
-      members: members as Member[],
-      tames: tames as Tame[],
-      items: items as Item[],
-      colors: colors as TameColor[],
-      species: species as Species[],
+      members: JSON.stringify(data?.members ?? null),
+      tames: JSON.stringify(data?.tames ?? null),
+      items: JSON.stringify(data?.items ?? null),
+      colors: JSON.stringify(data?.colors ?? null),
+      species: JSON.stringify(data?.species ?? null),
     },
     revalidate: 300,
   });
@@ -44,7 +43,19 @@ export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps
   const { state, dispatch } = useArkReducer() as reducerReturn;
 
   useEffect(() => {
-    if (props) dispatch({ type: 'set_init_state', data: props });
+    router.push('/ark')
+  }, []);
+
+  useEffect(() => {
+    if (props) dispatch({
+      type: 'set_init_state', data: {
+        members: JSON.parse(props.members) as Member[],
+        tames: JSON.parse(props.tames) as Tame[],
+        items: JSON.parse(props.items) as Item[],
+        colors: JSON.parse(props.colors) as TameColor[],
+        species: JSON.parse(props.species) as Species[],
+      }
+    });
   }, [props, dispatch]);
 
   const selectTab = useMemo(() => {
@@ -55,6 +66,12 @@ export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps
             {state.data.members.map((member: Member) => <ArkMemberTableItem key={`${v4()}-${member._id}`} member={member} />)}
           </ArkTableContainer>
         );
+      case '/ark/items':
+        return (
+          <ArkTableContainer>
+            {state.data.items.map((item: Item) => <ArkItemTableItem key={`${v4()}-${item._id}`} item={item} />)}
+          </ArkTableContainer>
+        );
       case '/ark/tames':
         return (
           <ArkTableContainer>
@@ -63,12 +80,14 @@ export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps
         );
       case '/ark/tames/new':
         return (<NewTameForm state={state} />);
-      case '/ark/items':
+      case '/ark/species':
         return (
           <ArkTableContainer>
-            {state.data.items.map((item: Item) => <ArkItemTableItem key={`${v4()}-${item._id}`} item={item} />)}
+            {state.data.species.map((species: Species) => <ArkSpeciesTableItem key={`${v4()}-${species._id}`} species={species} />)}
           </ArkTableContainer>
         );
+      case '/ark/colors':
+        return (<div>colors</div>);
       default:
         return (<div>Welcome to my Ark DataBase page</div>)
     }
@@ -79,7 +98,7 @@ export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps
   }
 
   return (
-    <div className="ArkPage">
+    <div className="ArkPage relative z-0">
 
       <Header
         currentView={router.asPath.split('/')[router.asPath.split('/').length - 1]}

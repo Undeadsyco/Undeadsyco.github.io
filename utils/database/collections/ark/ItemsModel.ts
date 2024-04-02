@@ -41,17 +41,18 @@ export default class Controller {
   }
 
   static async findAll(): Promise<Item[]> {
-    return (await this.itemsModel.find().lean()).map((item: mongoItem) => this.convertItem(item));
+    return await this.itemsModel.find();
   }
 
-  static async findOne(id: string): Promise<Item> {
-    return (await this.itemsModel.findById(id).lean()).then((item: mongoItem) => this.convertItem(item))
+  static async findOne(id: string): Promise<Item|null> {
+    return await this.itemsModel.findById(id);
   }
 
   static async findList(idList: string[]): Promise<Item[]> {
     const items: Item[] = [];
     for (let i = 0; i < idList.length; i += 1) {
-      items.push(await this.findOne(idList[i]));
+      const item = await this.findOne(idList[i])
+      if (item) items.push(item);
     }
     return items;
   }

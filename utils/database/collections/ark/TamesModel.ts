@@ -178,25 +178,18 @@ class Controller {
   }
 
   static async findAll(): Promise<Tame[]> {
-    return ((
-      await this.model.find().lean()
-    ).map(
-      (tame: mongoTame) => this.convertTame(tame)
-    ));
+    return await this.model.find()
   }
 
-  static async findOne(id: string): Promise<Tame> {
-    return ((
-      await this.model.findById(id).lean()
-    ).then(
-      (tame: mongoTame) => this.convertTame(tame)
-    ))
+  static async findOne(id: string): Promise<Tame|null> {
+    return await this.model.findById(id)
   }
 
   static async findList(idList: string[]): Promise<Tame[]> {
     const tames: Tame[] = [];
     for (let i = 0; i < idList.length; i += 1) {
-      tames.push(await this.findOne(idList[i]));
+      const tame = await this.findOne(idList[i]);
+      if (tame) tames.push(tame);
     }
     return tames;
   }

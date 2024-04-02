@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .h-38 {
+    height: 9.5rem;
+  } 
+}
 
 @layer components {
   .arkHeaderContainer {
@@ -39,7 +44,7 @@
     text-white
   }
 
-  .arkHeaderCollectionsDropdown-title {
+  .arkHeaderCollectionsDropdownTitle {
     @apply
     text-center
     w-full
@@ -48,12 +53,12 @@
     items-center
   }
 
-  .arkHeaderCollectionsDropdown-list {
+  .arkHeaderCollectionsDropdownList {
     @apply
     hidden
     absolute
     w-full
-    h-32
+    h-38
     opacity-90
     bg-slate-400
     text-black
@@ -66,7 +71,7 @@
     
   }
 
-  .arkHeaderCollectionsDropdown:hover .arkHeaderCollectionsDropdown-list {
+  .arkHeaderCollectionsDropdown:hover .arkHeaderCollectionsDropdownList {
     @apply
     block
     animate-slidedown
@@ -78,7 +83,7 @@
     text-white
   }
 
-  .arkHeaderCollectionsDropdown-btn {
+  .arkHeaderCollectionsDropdownBtn {
     @apply
     hover:text-red-400
   }
