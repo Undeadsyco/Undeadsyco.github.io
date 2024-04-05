@@ -49,11 +49,11 @@ export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps
   useEffect(() => {
     if (props) dispatch({
       type: 'set_init_state', data: {
-        members: JSON.parse(props.members) as Member[],
-        tames: JSON.parse(props.tames) as Tame[],
-        items: JSON.parse(props.items) as Item[],
-        colors: JSON.parse(props.colors) as TameColor[],
-        species: JSON.parse(props.species) as Species[],
+        members: (JSON.parse(props.members) as Member[]) ?? [],
+        tames: (JSON.parse(props.tames) as Tame[]) ?? [],
+        items: (JSON.parse(props.items) as Item[]) ?? [],
+        colors: (JSON.parse(props.colors) as TameColor[]) ?? [],
+        species: (JSON.parse(props.species) as Species[]) ?? [],
       }
     });
   }, [props, dispatch]);
