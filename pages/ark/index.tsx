@@ -32,8 +32,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
       items: JSON.stringify(data?.items ?? null),
       colors: JSON.stringify(data?.colors ?? null),
       species: JSON.stringify(data?.species ?? null),
-    },
-    revalidate: 300,
+    }
   });
 }
 
@@ -49,11 +48,11 @@ export default function Ark(props: InferGetStaticPropsType<typeof getStaticProps
   useEffect(() => {
     if (props) dispatch({
       type: 'set_init_state', data: {
-        members: (JSON.parse(props.members) as Member[]) ?? [],
-        tames: (JSON.parse(props.tames) as Tame[]) ?? [],
-        items: (JSON.parse(props.items) as Item[]) ?? [],
-        colors: (JSON.parse(props.colors) as TameColor[]) ?? [],
-        species: (JSON.parse(props.species) as Species[]) ?? [],
+        members: props.members ? JSON.parse(props.members) as Member[] : [],
+        tames: props.tames ?  JSON.parse(props.tames) as Tame[] : [],
+        items: props.items ?  JSON.parse(props.items) as Item[] : [],
+        colors: props.colors ?  JSON.parse(props.colors) as TameColor[] : [],
+        species: props.species ?  JSON.parse(props.species) as Species[] : [],
       }
     });
   }, [props, dispatch]);

@@ -3,7 +3,6 @@ import { Tame } from "./database/collections/ark/TamesModel";
 export const capitalize = (val?: string) => val?.split('').map((v, i, a) => i === 0 ? v.toUpperCase() : a[i - 1] === " " ? v.toUpperCase() : v).join('');
 
 export const mapArkTameData = <cType,>(tames: Tame[], keys: string[]) => {
-  console.log('tames', tames, 'keys', keys)
   const mapedData = new Map();
 
   keys.forEach(key => {
@@ -13,7 +12,6 @@ export const mapArkTameData = <cType,>(tames: Tame[], keys: string[]) => {
     else return
   });
 
-  console.log('mapedData', mapedData);
   return mapedData;
 }
 
@@ -43,7 +41,6 @@ const mapedSection = (tames: Tame[], key: string) => {
       default: { }
     }
 
-    console.log('key', key, 'mapKey', mapKey);
     if (mapKeys.includes(mapKey)) mapedSection.set(mapKey, [...mapedSection.get(mapKey), item]);
     else mapedSection.set(mapKey, [item]);
   });

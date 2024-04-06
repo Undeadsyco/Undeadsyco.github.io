@@ -13,10 +13,6 @@ type props = {
 export default function NewTameForm({ state }: props) {
   const { tameFormik } = useTameForm();
 
-  useEffect(() => {
-    console.log('state', state);
-  }, [state]);
-
   return (
     <form className="tameFormContainer" onSubmit={tameFormik.handleSubmit} onReset={tameFormik.handleReset}>
       <FormInput className="arkDefaultContainer newArkTameNameFormInput" inputConfig={{

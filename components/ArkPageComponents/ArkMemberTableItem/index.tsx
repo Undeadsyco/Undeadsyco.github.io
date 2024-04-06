@@ -43,10 +43,6 @@ const mapMemberStats = (stats: memberStats) => Object.keys(stats).map((group: st
 export default function ArkMemberTableItem({ member }: props) {
   const [icon, setIcon] = useState(<BiRightArrowCircle />)
 
-  useEffect(() => {
-    console.log(member)
-  }, [member]);
-
   const handleClick = () => { }
 
   return (

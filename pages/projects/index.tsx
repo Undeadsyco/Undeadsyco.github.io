@@ -8,7 +8,8 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
   const req = await fetch('https://api.github.com/users/undeadsyco/repos');
   const res = await req.json();
 
-  const repos = Array.from(res).map(({ id, name, url, html_url, description, homepage, language, updated_at, topics }: any): repo => {
+  const repos = Array.from(res).map((repo: any): repo => {
+    const { id, name, url, html_url, description, homepage, language, updated_at, topics } = repo;
     let appType:string;
     if(topics.includes('game')) appType = 'game';
     else if(topics.includes('mobile-app')) appType = 'mobile-app';
@@ -26,7 +27,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
       updated_at,
       topics,
       appType,
-    })
+    });
   });
 
   return ({

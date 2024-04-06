@@ -14,10 +14,6 @@ type props = {
 
 export default function ArkItemTableItem({ item }: props) {
 
-  useEffect(() => {
-    console.log(item)
-  }, [item]);
-
   return (
     <div className='arkDefaultContainer arkItemTableItemContainer'>
       <h3 className='arkItemName'>Item: {capitalize(item.name)}</h3>
