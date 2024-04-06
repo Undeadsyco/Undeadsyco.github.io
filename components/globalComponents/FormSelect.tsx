@@ -1,5 +1,5 @@
 import type { ChangeEventHandler, FocusEventHandler } from 'react';
-import { capitalize } from '../../utils/utilities';
+import { capitalize } from '../../utils';
 
 type inputType = (string | readonly string[]);
 type props<valType extends inputType> = {

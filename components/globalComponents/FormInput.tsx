@@ -1,5 +1,5 @@
 import type { HTMLInputTypeAttribute, ChangeEventHandler, FocusEventHandler, ReactElement } from 'react';
-import { capitalize } from '../../utils/utilities';
+import { capitalize } from '../../utils';
 
 type inputType = (string | number);
 type props = {

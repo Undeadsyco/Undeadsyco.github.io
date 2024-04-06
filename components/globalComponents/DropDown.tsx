@@ -1,5 +1,5 @@
 import { BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
-import { capitalize } from '../../utils/utilities';
+import { capitalize } from '../../utils';
 
 type props = {
   className: string;

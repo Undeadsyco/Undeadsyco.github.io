@@ -9,8 +9,7 @@ const Nav = () => (
       
       <li className="dropdown"> More
         <ul className="dropdown-content">
-          <li>Blog</li> 
-          <li><Link href={'/ark'}>Ark</Link></li>
+          <li>Blog</li>
         </ul>
       </li>
     </ul>
