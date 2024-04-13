@@ -1,14 +1,13 @@
 import type { GetStaticProps, GetStaticPropsContext, GetStaticPropsResult } from "next";
-import type { repo, projectsPageProps, filteredList } from "../../types";
 
 import { ChangeEvent, ChangeEventHandler, useState } from "react";
 import { ListContainer, ProjectsHeader } from "../../components";
 
-export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext): Promise<GetStaticPropsResult<projectsPageProps>> => {
+export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext): Promise<GetStaticPropsResult<Projects.projectsPageProps>> => {
   const req = await fetch('https://api.github.com/users/undeadsyco/repos');
   const res = await req.json();
 
-  const repos = Array.from(res).map((repo: any): repo => {
+  const repos = Array.from(res).map((repo: any): Projects.repo => {
     const { id, name, url, html_url, description, homepage, language, updated_at, topics } = repo;
     let appType:string;
     if(topics.includes('game')) appType = 'game';
@@ -37,7 +36,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
   })
 }
 
-export default function Projects({ repos }: projectsPageProps) {
+export default function Projects({ repos }: Projects.projectsPageProps) {
   const [filterType, setFilterType] = useState<string>('projectTypes');
   const filterTypes = {
     projectTypes: ['school-project', 'personal-project', 'tutorial-project', 'capstone-project'],
@@ -49,7 +48,7 @@ export default function Projects({ repos }: projectsPageProps) {
     techTypes: ['react', 'redux', 'axios', 'styled-components', 'express', 'phaser'],
   }
 
-  let list: filteredList;
+  let list: Projects.filteredList;
 
   switch (filterType) {
     case 'projectTypes':

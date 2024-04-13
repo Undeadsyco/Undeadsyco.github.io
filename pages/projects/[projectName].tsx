@@ -3,7 +3,6 @@ import type {
   GetStaticProps, GetStaticPropsContext, GetStaticPropsResult,
 } from "next";
 import { ParsedUrlQuery } from "querystring";
-import type { repo } from "../../types";
 
 interface Params extends ParsedUrlQuery {
   url: string;
@@ -24,7 +23,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx: GetStaticPathsContext)
 }
 
 type props = {
-  repo?: repo,
+  repo?: Projects.repo,
 }
 
 export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext): Promise<GetStaticPropsResult<props>> => {
