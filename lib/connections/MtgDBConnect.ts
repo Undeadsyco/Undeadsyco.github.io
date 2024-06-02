@@ -4,13 +4,7 @@ declare global {
   var mtgDB: any; // This must be a `var` and not a `let / const`
 }
 
-const MONGODB_URI = process.env.MONGO_URI!;
-
-if (!MONGODB_URI) {
-  throw new Error(
-    "Please define the MONGODB_URI environment variable",
-  );
-}
+const MONGODB_URI = process.env.MONGO_URI;
 
 let cached = global.mtgDB;
 
@@ -19,6 +13,12 @@ if (!cached) {
 }
 
 async function dbConnect() {
+  if (!MONGODB_URI) {
+    throw new Error(
+      "Please define the MONGODB_URI environment variable",
+    );
+  }
+
   if (cached.conn) {
     return cached.conn;
   }
