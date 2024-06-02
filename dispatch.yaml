@@ -1,0 +1,6 @@
+dispatch:
+  - url: "digichat.the-undead-dev.com/*"
+    service: digichat
+
+  - url: "the-undead-dev.com/*"
+    service: default

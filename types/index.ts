@@ -1,4 +1,7 @@
 import { ChangeEventHandler } from 'react';
+import { Types } from "mongoose";
+
+export type IDType = (Types.ObjectId | string);
 
 export type optionals<T> = { [P in keyof T]?: T[P] };
 

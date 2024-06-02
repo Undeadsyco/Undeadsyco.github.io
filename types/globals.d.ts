@@ -1,3 +1,4 @@
 declare module globalThis {
-  var _mongoClientPromise: any;
+  var arkConnection: any;
+  var mtgDB: any;
 }
