@@ -1,42 +1,41 @@
 import { Schema, model, models } from "mongoose";
 import { IDType } from "../../../types";
+import mtgDB from "../../connections/MtgDBConnect";
+import { ICard } from "./cards";
 
 export interface ISet {
   _id?: IDType;
   name: string;
-  imageUrl: string;
-  expansions: IDType[];
+  code: string;
+  cards: IDType[] | ICard[]
 }
 
 export default class SetController {
   public static model = models?.Set || model<ISet>("Set", new Schema<ISet>({
     name: { type: String, required: true },
-    imageUrl: { type: String, required: true },
-    expansions: [{ type: Schema.Types.ObjectId, ref: "Expansion" }],
+    code: { type: String, required: true },
+    cards: [{ type: Schema.Types.ObjectId, ref: "Card", required: true }]
   }));
 
-  public static async create({ name, imageUrl }: ISet): Promise<ISet> {
+  public static async create(set: ISet): Promise<ISet> {
     await mtgDB();
 
-    return await this.model.create({ name, imageUrl, expansions: [] });
+    return await this.model.create(set);
   }
 
   public static async getAll(set?: ISet) {
     await mtgDB();
-
-    if (set) return await this.model.find({ name: set.name });
-    return await this.model.find();
+    if (set) return await this.model.find({ name: set.name, code: set.code });
+    return await this.model.find().lean();
   }
 
-  public static async getOne(set: ISet) {
+  public static async getOne(set: { [K in keyof ISet]?: ISet[K] }) {
     await mtgDB();
-
     return await this.model.findOne({ name: set.name });
   }
 
-  public static async getById(id: IDType): Promise<ISet | null> {
+  public static async addCard(setId: IDType, cardId: IDType) {
     await mtgDB();
-
-    return await this.model.findById(id);
+    return await this.model.findByIdAndUpdate(setId, { $push: { cards: cardId } })
   }
 }

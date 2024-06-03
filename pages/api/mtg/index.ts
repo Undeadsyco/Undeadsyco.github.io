@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import * as Magic from "mtgsdk-ts";
+import { Card } from "mtgsdk-ts/out/IMagic";
 
 type Data = {
-
+ cards: Card[]
 }
 
 export default async function handler(

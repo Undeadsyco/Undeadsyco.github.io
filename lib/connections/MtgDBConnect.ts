@@ -26,10 +26,7 @@ async function dbConnect() {
     cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
       dbName: 'mtg',
-    }).then((mongoose) => {
-      console.log("database connection: ", mongoose)
-      return mongoose;
-    });
+    }).then((mongoose) => mongoose);
   }
   try {
     cached.conn = await cached.promise;
