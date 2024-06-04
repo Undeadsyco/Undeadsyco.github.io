@@ -2,7 +2,7 @@
 import { Types } from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from "next";
 // controllers
-import CardController, { ICard } from "../../../../lib/collections/mtg/cards";
+import CardController, { ICard, OfficialCard } from "../../../../lib/collections/mtg/cards";
 import SetController from "../../../../lib/collections/mtg/sets";
 // types
 import type { Card, CreatureCard, PlaneswalkerCard } from "mtgsdk-ts/out/IMagic";
@@ -12,16 +12,16 @@ type Data = {
 
 }
 
-const isCreature = (card: any): card is CreatureCard => (
+const isCreature = (card: any): card is (Card & CreatureCard) => (
   ("power" && "toughness") in card
 );
 
-const isPlaneswalker = (card: any): card is PlaneswalkerCard => (
+const isPlaneswalker = (card: any): card is (Card & PlaneswalkerCard) => (
   "loyalty" in card
 );
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  const data: Card | (CreatureCard) | (PlaneswalkerCard) = req.body.card;
+  const data: OfficialCard = req.body.card;
 
   const card: ICard = await CardController.getOne({ name: data.name });
 

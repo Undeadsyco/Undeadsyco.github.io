@@ -1,8 +1,7 @@
 import { Schema, model, models } from "mongoose";
 import { IDType } from "../../../types";
 import mtgDB from "../../connections/MtgDBConnect";
-import { CreatureCard, PlaneswalkerCard } from "mtgsdk-ts/out/IMagic";
-
+import { Card, CreatureCard, PlaneswalkerCard } from "mtgsdk-ts/out/IMagic";
 
 export interface ICard {
   _id?: IDType;
@@ -26,6 +25,8 @@ export interface ICreatureCard extends ICard {
 export interface IPlaneswalkerCard extends ICard {
   loyalty: number;
 }
+
+export type OfficialCard = (Card | (Card & CreatureCard) | (Card & PlaneswalkerCard))
 
 export type CustomCard = (ICard | ICreatureCard | IPlaneswalkerCard);
 

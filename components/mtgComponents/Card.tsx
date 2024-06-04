@@ -2,20 +2,18 @@ import Image from "next/image";
 
 import { ReactNode } from "react";
 
-import CardController, { CustomCard, ICard } from "../../lib/collections/mtg/cards";
+import CardController, { CustomCard, ICard, OfficialCard } from "../../lib/collections/mtg/cards";
 import { Card, CreatureCard, PlaneswalkerCard } from "mtgsdk-ts/out/IMagic";
 
-type officialCard = (Card | (Card & CreatureCard) | (Card & PlaneswalkerCard));
-
-const isCreature = (card: any): card is CreatureCard => (
+const isCreature = (card: any): card is (Card & CreatureCard) => (
   ("power" && "toughness") in card
 );
 
-const isPlaneswalker = (card: any): card is PlaneswalkerCard => (
+const isPlaneswalker = (card: any): card is (Card & PlaneswalkerCard) => (
   "loyalty" in card
 );
 
-const CollectionCard = (card: CustomCard) => {
+const CollectionCardComp = (card: CustomCard) => {
   return (
     <div>
       <div>
@@ -43,7 +41,7 @@ const CollectionCard = (card: CustomCard) => {
   );
 }
 
-const OfficialCard = (card: officialCard) => (
+const OfficialCardComp = (card: OfficialCard) => (
   <div>
     <div>
       <h4>{card.name}</h4>
@@ -59,7 +57,7 @@ const OfficialCard = (card: officialCard) => (
 
 
 const CardDetails = (card: ICard | Card) => (
-  (card as ICard)._id ? <CollectionCard {...(card as ICard)} /> : <OfficialCard {...(card as Card)} />
+  (card as ICard)._id ? <CollectionCardComp {...(card as ICard)} /> : <OfficialCardComp {...(card as Card)} />
 );
 
 const isCollectionCard = (card: any): card is ICard => (
