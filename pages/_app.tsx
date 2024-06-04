@@ -4,6 +4,11 @@ import type { AppProps } from 'next/app';
 import { Nav } from '../components';
 import { useRouter } from 'next/router';
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faLayerGroup);
+
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   return (

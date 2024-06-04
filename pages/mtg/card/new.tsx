@@ -7,6 +7,7 @@ import Image from "next/image";
 // types
 import type { Card } from "mtgsdk-ts/out/IMagic";
 import Link from "next/link";
+import { CardList, MtgCard } from "../../../components/mtgComponents";
 
 function NewCard() {
   const router = useRouter();
@@ -40,15 +41,15 @@ function NewCard() {
     if (inputRef.current) (inputRef.current as HTMLInputElement).value = "";
     setCardList([]);
   }
-
+  
   const addToCollection = (card: Card) => {
-    axios.post("/api/mtg/new/card", { card }).then(res => {
+    axios.post("/api/mtg/card", { card }).then(res => {
       alert(`${res.status}, ${res.data}`);
     });
   }
 
   const addToDeck = (deck: string, card: Card) => {
-    axios.post("/api/mtg/card/card", { deck, card }).then(res => {
+    axios.post("/api/mtg/card", { deck, card }).then(res => {
       alert(`${res.status}, ${res.data}`);
     });
   }
@@ -66,16 +67,15 @@ function NewCard() {
           <button onClick={clearSeearch} className="absolute bg-white text-black px-4 py-1 rounded-full right-0 font-bold border-2 border-gray-400">Clear</button>
         </div>
       </div>
-      <div className="row-span-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-scroll">
+      <CardList>
         {cardList.map((card) => (
-          <div key={card.id} className="w-full mx-auto mb-8 flex flex-col justify-center items-center">
-            <Image src={card.imageUrl} alt={card.name} className="w-[80%] h-auto" width={200} height={300} />
+          <MtgCard key={card.id as string} {... { card }}>
             <button onClick={() => addToCollection(card)} className="bg-white rounded-full text-black border-black border-2 px-2 m-auto">
               Add to Collection
             </button>
-          </div>
+          </MtgCard>
         ))}
-      </div>
+      </CardList>
     </div>
   );
 }
