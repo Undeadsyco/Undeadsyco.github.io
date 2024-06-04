@@ -1,10 +1,19 @@
 import Link from "next/link";
-import CardController, { ICard } from "../../lib/collections/mtg/cards";
+import CardController, { CustomCard } from "../../lib/collections/mtg/cards";
 import { CardList, MtgCard, MtgHeader } from "../../components/mtgComponents";
-import SetController from "../../lib/collections/mtg/sets";
-import DeckController from "../../lib/collections/mtg/deck";
+import SetController, { ISet } from "../../lib/collections/mtg/sets";
+import DeckController, { IDeck } from "../../lib/collections/mtg/deck";
+import { useState } from "react";
 
-function MTG({ cards }: { cards: ICard[] }) {
+function MTG({ cards, sets, decks }: { cards: CustomCard[], sets: ISet[], decks: IDeck[] }) {
+  const [list, setList] = useState<any[]>(cards);
+
+  const changeList = (collection: string) => {
+    if (collection === "cards") setList(cards);
+    if (collection === "sets") setList(sets);
+    if (collection === "decks") setList(decks);
+  }
+
   return (
     <div className="w-full h-full grid grid-rows-12">
       <MtgHeader />

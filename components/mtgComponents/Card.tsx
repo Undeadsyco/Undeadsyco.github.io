@@ -2,10 +2,10 @@ import Image from "next/image";
 
 import { ReactNode } from "react";
 
-import { ICard } from "../../lib/collections/mtg/cards";
+import CardController, { CustomCard, ICard } from "../../lib/collections/mtg/cards";
 import { Card, CreatureCard, PlaneswalkerCard } from "mtgsdk-ts/out/IMagic";
 
-type officialCard = (Card | (CreatureCard) | (PlaneswalkerCard));
+type officialCard = (Card | CreatureCard | PlaneswalkerCard);
 
 const isCreature = (card: any): card is CreatureCard => (
   ("power" && "toughness") in card
@@ -15,23 +15,33 @@ const isPlaneswalker = (card: any): card is PlaneswalkerCard => (
   "loyalty" in card
 );
 
-const CollectionCard = ({ name, manaCost, rarity, type, subTypes, set, text, power, toughness, loyalty }: ICard) => (
-  <div>
-    <div>
-      <h4>{name}</h4>
-      <p>{manaCost}</p>
-    </div>
+const CollectionCard = (card: CustomCard) => {
+  return (
     <div>
       <div>
-        <p>{rarity}</p>
-        <p>{type}</p>
-        <p>- {subTypes.map(subType => <span key={subType}>{subType}</span>)}</p>
+        <h4>{card.name}</h4>
+        <p>{card.manaCost}</p>
       </div>
-      <p>{text}</p>
-      <p>{power && toughness ? <span>{power}/{toughness}</span> : loyalty}</p>
+      <div>
+        <div>
+          <p>{card.rarity}</p>
+          <p>{card.type}</p>
+          <p>- {card.subTypes.map(subType => <span key={subType}>{subType}</span>)}</p>
+        </div>
+        <p>{card.text}</p>
+        <p>
+          {
+            CardController.isCreature(card)
+              ? <span>{card.power}/{card.toughness}</span>
+              : CardController.isPlaneswalker(card)
+                ? card.loyalty
+                : null
+          }
+        </p>
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
 const OfficialCard = (card: officialCard) => (
   <div>
