@@ -38,3 +38,5 @@ next-env.d.ts
 
 # github projects stored in public/static-builds folder
 /public/static-builds
+
+env_secrets.yaml

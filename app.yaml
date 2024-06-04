@@ -1,9 +1,0 @@
-runtime: nodejs18
-
-includes: 
-  - env_secrets.yaml
-
-handlers:
-  - url: /.*
-    secure: always
-    script: auto
