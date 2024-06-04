@@ -20,11 +20,11 @@ export default class DeckController {
     "_id" in card
   );
 
-  public static strigifyIds = (deck: IDeck) => ({
+  public static strigifyIds = (decks: IDeck[]) => decks.map(deck => ({
     ...deck,
     _id: deck._id?.toString(),
     cards: deck.cards.map(card => this.isCard(card) ? { ...card, _id: card._id?.toString() } : card.toString())
-  })
+  }));
 
   public static async create(set: IDeck): Promise<IDeck> {
     await mtgDB();

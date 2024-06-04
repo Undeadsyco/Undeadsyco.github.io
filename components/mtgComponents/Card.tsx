@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import CardController, { CustomCard, ICard } from "../../lib/collections/mtg/cards";
 import { Card, CreatureCard, PlaneswalkerCard } from "mtgsdk-ts/out/IMagic";
 
-type officialCard = (Card | CreatureCard | PlaneswalkerCard);
+type officialCard = (Card | (Card & CreatureCard) | (Card & PlaneswalkerCard));
 
 const isCreature = (card: any): card is CreatureCard => (
   ("power" && "toughness") in card

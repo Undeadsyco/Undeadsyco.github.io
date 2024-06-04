@@ -22,11 +22,11 @@ export default class SetController {
     "_id" in card
   );
 
-  public static strigifyIds = (set: ISet) => ({
+  public static strigifyIds = (sets: ISet[]) => sets.map(set => ({
     ...set,
     _id: set._id?.toString(),
     cards: set.cards.map(card => this.isCard(card) ? { ...card, _id: card._id?.toString() } : card.toString())
-  });
+  }));
 
   public static async create(set: ISet): Promise<ISet> {
     await mtgDB();
